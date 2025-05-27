@@ -1,5 +1,8 @@
 # Docker Python
 
+> [!IMPORTANT]
+> Python should **ONLY** be used for creating backend services related to AI or data science.
+
 This repository contains Python parent Docker image source code for Defra.
 
 The following table lists the versions of node available, and the parent Python image they are based on:
