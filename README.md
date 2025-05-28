@@ -5,7 +5,7 @@
 
 This repository contains Python parent Docker image source code for Defra.
 
-The following table lists the versions of node available, and the parent Python image they are based on:
+The following table lists the versions of python available, and the parent Python image they are based on:
 
 | Python version  | Parent image       |
 | --------------- | -----------------  |
