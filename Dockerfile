@@ -1,50 +1,81 @@
 # Set default values for build arguments
-ARG DEFRA_VERSION=1.0.0
-ARG BASE_VERSION=3.12.10-slim-bookworm
+ARG DEFRA_VERSION=0.1.0
+ARG PYTHON_VERSION=3.12.11
+ARG DEVELOPMENT_VERSION=3.12.11-slim-bookworm
+ARG PRODUCTION_VERSION=cc-debian12
 
-FROM python:${BASE_VERSION} AS production
+FROM python:${DEVELOPMENT_VERSION} AS development
 
-ARG BASE_VERSION
 ARG DEFRA_VERSION
+ARG PYTHON_VERSION
+ARG BASE_VERSION
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHON_ENV=development
 
-# Set global pip dependencies to be stored under the python user directory
-ENV PATH="/home/python/.local/bin:$PATH"
+LABEL uk.gov.defra.python.python-version=$PYTHON_VERSION \
+      uk.gov.defra.python.version=$DEFRA_VERSION \
+      uk.gov.defra.python.repository=defradigital/python-development
 
-RUN apt update && apt install -y curl ca-certificates
+RUN apt update \
+  && apt upgrade -y --no-install-recommends \
+  && apt install -y --no-install-recommends \
+    ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+# Install curl from Debian 13 (trixie) backport to patch CVE-2025-0725
+RUN echo "deb https://deb.debian.org/debian bookworm-backports main" > /etc/apt/sources.list.d/bookworm-backports.list \
+  && apt update \
+  && apt install -t bookworm-backports -y --no-install-recommends \
+    curl=8.13.0-5~bpo12+1 \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Internal CA certificate for firewall and Zscaler proxy
 COPY certificates/internal-ca.crt /usr/local/share/ca-certificates/internal-ca.crt
 RUN chmod 644 /usr/local/share/ca-certificates/internal-ca.crt && update-ca-certificates
 
-# create a python user to run as
-RUN addgroup --gid 1000 python \
-  && adduser python \
+# Create a non-root user for running Python applications
+RUN addgroup --gid 1000 nonroot \
+  && adduser nonroot \
     --uid 1000 \
     --gid 1000 \
-    --home /home/python \
+    --home /home/nonroot \
     --shell /bin/bash
+    
+USER nonroot
+WORKDIR /home/nonroot
 
-# Default to the python user
-USER python
-WORKDIR /home/python
+# Install Python development tools and libraries
+RUN python -m pip install --no-cache-dir uv pydebug
 
-# Install uv for package management
-RUN python -m pip install --user uv
+ENTRYPOINT [ "/usr/local/bin/python" ]
 
-# Label images to aid searching
-LABEL uk.gov.defra.python.python-version=$BASE_VERSION \
+FROM gcr.io/distroless/${PRODUCTION_VERSION}:nonroot AS production
+
+ARG DEFRA_VERSION
+ARG PYTHON_VERSION
+ARG BASE_VERSION
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHON_ENV=production
+
+LABEL uk.gov.defra.python.python-version=$PYTHON_VERSION \
       uk.gov.defra.python.version=$DEFRA_VERSION \
       uk.gov.defra.python.repository=defradigital/python
 
-FROM production AS development
+# Copy required debian packages from the development stage
+COPY --from=development /usr/bin/curl /usr/bin/curl
 
-ENV PYTHON_ENV=development
+# Copy updated CA certificates from the development stage
+COPY --from=development /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=development /etc/ssl/certs /etc/ssl/certs
 
-LABEL uk.gov.defra.python.repository=defradigital/python-development
+# Copy Python binaries and dependencies from the development stage
+COPY --from=development /lib/x86_64-linux-gnu/lib* /lib/x86_64-linux-gnu/
+COPY --from=development /usr/local /usr/local
 
-# Install debugging tools
-RUN python -m pip install --user pydebug
+USER nonroot
+
+ENTRYPOINT [ "/usr/local/bin/python" ]
