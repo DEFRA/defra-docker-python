@@ -79,7 +79,7 @@ jobs:
       - name: Run Aqua Trivy scan
         id: trivy-scan
         if: ${{ matrix.target == 'production' }}
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@0.31.0
         with:
           image-ref: ${{steps.setImageDetails.outputs.fullImageName}}
           format: sarif
@@ -87,6 +87,7 @@ jobs:
           exit-code: 1
           vuln-type: os,library
           severity: CRITICAL,HIGH,MEDIUM
+          trivyignores: '.trivyignore'
         continue-on-error: true
 
       - name: Upload Grype SARIF report
