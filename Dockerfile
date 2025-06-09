@@ -1,10 +1,10 @@
 # Set default values for build arguments
 ARG DEFRA_VERSION=0.1.0
 ARG PYTHON_VERSION=3.12.11
-ARG DEVELOPMENT_BASE=3.12.11-slim-bookworm
-ARG PRODUCTION_BASE=cc-debian12
+ARG DEVELOPMENT_VERSION=3.12.11-slim-bookworm
+ARG PRODUCTION_VERSION=cc-debian12
 
-FROM python:${DEVELOPMENT_BASE} AS development
+FROM python:${DEVELOPMENT_VERSION} AS development
 
 ARG DEFRA_VERSION
 ARG PYTHON_VERSION
@@ -51,7 +51,7 @@ RUN python -m pip install --no-cache-dir uv pydebug
 
 ENTRYPOINT [ "/usr/local/bin/python" ]
 
-FROM gcr.io/distroless/${PRODUCTION_BASE}:nonroot AS production
+FROM gcr.io/distroless/${PRODUCTION_VERSION}:nonroot AS production
 
 ARG DEFRA_VERSION
 ARG PYTHON_VERSION

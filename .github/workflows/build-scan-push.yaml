@@ -86,7 +86,7 @@ jobs:
           output: trivy-reports-python-${{ matrix.image.pythonVersion }}
           exit-code: 1
           vuln-type: os,library
-          severity-cutoff: "medium"
+          severity: CRITICAL,HIGH,MEDIUM
           trivyignores: '.trivyignore'
         continue-on-error: true
 
