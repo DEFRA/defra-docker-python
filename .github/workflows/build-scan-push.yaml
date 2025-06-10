@@ -86,8 +86,8 @@ jobs:
           output: trivy-reports-python-${{ matrix.image.pythonVersion }}
           exit-code: 1
           vuln-type: os,library
-          severity: CRITICAL,HIGH,MEDIUM
           trivyignores: '.trivyignore'
+          severity: CRITICAL,HIGH,MEDIUM
         continue-on-error: true
 
       - name: Upload Grype SARIF report

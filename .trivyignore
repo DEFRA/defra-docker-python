@@ -1,4 +1,4 @@
-# Affects Python 3.12 and 1.13 - Waiting for fix to propagate down from 3.14 (prerelease). Workaround possible using try-except rather than error=handler with "bytes.decode" and "unicode_escape".
+# Affects Python 3.12 and 3.13 - Waiting for fix to propagate down from 3.14 (prerelease). Workaround possible using try-except rather than error=handler with "bytes.decode" and "unicode_escape".
 CVE-2025-4516
 
 # Waiting for fix in Debian - Only exploitable if using WolfSSL as TLS library.
