@@ -88,6 +88,7 @@ jobs:
           vuln-type: os,library
           trivyignores: '.trivyignore'
           severity: CRITICAL,HIGH,MEDIUM
+          limit-severities-for-sarif: true
         continue-on-error: true
 
       - name: Upload Grype SARIF report
