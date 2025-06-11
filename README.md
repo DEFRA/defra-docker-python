@@ -7,10 +7,10 @@ This repository contains Python parent Docker image source code for Defra.
 
 The following table lists the versions of python available, and the parent Python image they are based on:
 
-| Python version  | Parent image       |
-| --------------- | -----------------  |
-| 3.13.3 | 3.13.3-slim-bookworm |
-| 3.12.6 | 3.12.6-slim-bookworm |
+| Python version  | Development parent image       | Production parent image       |
+|-----------------|--------------------------------|-------------------------------|
+| 3.13.3          | 3.13.3-slim-bookworm           | gcr.io/distroless/cc-debian12 |
+| 3.12.6          | 3.12.6-slim-bookworm           | gcr.io/distroless/cc-debian12 |
 
 Two parent images are created for each version:
 
@@ -18,6 +18,12 @@ Two parent images are created for each version:
 - defra-python-development
 
 It is recommended that services use [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build) to produce production and development images, each extending the appropriate parent, from a single Dockerfile.
+
+By default, the following packages are installed in the parent images:
+- `uv`
+- `pydebug` - for the development image only
+
+A example of a Python application (using uv) extending the parent images has been provided in [uv.Dockerfile](uv.Dockerfile).
 
 ## Supported Python versions
 
