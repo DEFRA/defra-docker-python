@@ -10,6 +10,7 @@ ARG DEFRA_VERSION
 ARG PYTHON_VERSION
 ARG BASE_VERSION
 
+ENV PATH="/home/nonroot/.local/bin:$PATH"
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHON_ENV=development
@@ -46,7 +47,7 @@ RUN addgroup --gid 1000 nonroot \
 USER nonroot
 WORKDIR /home/nonroot
 
-# Install Python development tools and libraries
+# Install Python package manager and development tools
 RUN python -m pip install --no-cache-dir uv pydebug
 
 ENTRYPOINT [ "/usr/local/bin/python" ]
@@ -57,6 +58,7 @@ ARG DEFRA_VERSION
 ARG PYTHON_VERSION
 ARG BASE_VERSION
 
+ENV PATH="/home/nonroot/.local/bin:$PATH"
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHON_ENV=production
@@ -75,6 +77,8 @@ COPY --from=development /etc/ssl/certs /etc/ssl/certs
 # Copy Python binaries and dependencies from the development stage
 COPY --from=development /lib/x86_64-linux-gnu/lib* /lib/x86_64-linux-gnu/
 COPY --from=development /usr/local /usr/local
+
+COPY --from=development /home/nonroot/.local/bin/uv /home/nonroot/.local/bin/uv
 
 USER nonroot
 
