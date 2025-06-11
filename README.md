@@ -23,7 +23,10 @@ By default, the following packages are installed in the parent images:
 - `uv`
 - `pydebug` - for the development image only
 
-A example of a Python application (using uv) extending the parent images has been provided in [uv.Dockerfile](uv.Dockerfile).
+Examples have been provided in the [examples](./examples) directory to demonstrate how parent images can be extended.
+
+The following example Dockerfiles have been provided:
+- [uv](./examples/uv.Dockerfile) - Example of using `uv` to manage dependencies and run a Python service.
 
 ## Supported Python versions
 

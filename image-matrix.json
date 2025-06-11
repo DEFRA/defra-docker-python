@@ -2,13 +2,13 @@
     {
         "pythonVersion": "3.13.4",
         "debianVersion": "slim-bookworm",
-        "distrolessVersion": "gcr.io/distroless/cc-debian12",
+        "distrolessVersion": "cc-debian12",
         "tags": ["latest-3.13", "latest"]
     },
     {
         "pythonVersion": "3.12.11",
         "debianVersion": "slim-bookworm",
-        "distrolessVersion": "gcr.io/distroless/cc-debian12",
+        "distrolessVersion": "cc-debian12",
         "tags": ["latest-3.12"]
     }
 ]
