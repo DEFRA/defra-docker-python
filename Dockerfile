@@ -29,7 +29,7 @@ RUN apt update \
 RUN echo "deb https://deb.debian.org/debian bookworm-backports main" > /etc/apt/sources.list.d/bookworm-backports.list \
   && apt update \
   && apt install -t bookworm-backports -y --no-install-recommends \
-    curl=8.13.0-5~bpo12+1 \
+    curl \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Internal CA certificate for firewall and Zscaler proxy
@@ -59,6 +59,7 @@ ARG PYTHON_VERSION
 ARG BASE_VERSION
 
 ENV PATH="/home/nonroot/.local/bin:$PATH"
+ENV LD_LIBRARY_PATH="/lib/x86_64-linux-gnu:/usr/local/lib:/usr/local/lib/python3.12/site-packages"
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHON_ENV=production
@@ -67,8 +68,12 @@ LABEL uk.gov.defra.python.python-version=$PYTHON_VERSION \
       uk.gov.defra.python.version=$DEFRA_VERSION \
       uk.gov.defra.python.repository=defradigital/python
 
+COPY --chown=nonroot:nonroot --from=development /bin/sh /bin/sh
+COPY --chown=nonroot:nonroot --from=development /bin/ls /bin/ls
+COPY --chown=nonroot:nonroot --from=development /bin/echo /bin/echo
+
 # Copy required debian packages from the development stage
-COPY --from=development /usr/bin/curl /usr/bin/curl
+COPY --from=development /bin/curl /bin/curl
 
 # Copy updated CA certificates from the development stage
 COPY --from=development /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
@@ -81,5 +86,6 @@ COPY --from=development /usr/local /usr/local
 COPY --from=development /home/nonroot/.local/bin/uv /home/nonroot/.local/bin/uv
 
 USER nonroot
+WORKDIR /home/nonroot
 
 ENTRYPOINT [ "/usr/local/bin/python" ]

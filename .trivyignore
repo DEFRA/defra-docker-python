@@ -9,6 +9,3 @@ CVE-2025-5025
 
 # Fixed in Debian 13 - Limited exposure as only exploitable locally and production image has no shell.
 CVE-2025-4802
-
-# Fixed in Debian 13 (trixie 8.14.1-1) - Waiting for fixed package to make it into stable - Will review in a month.
-CVE-2025-5399 exp:2025-06-10

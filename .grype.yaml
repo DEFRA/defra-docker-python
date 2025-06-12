@@ -3,4 +3,3 @@ ignore:
   - vulnerability: CVE-2025-4947
   - vulnerability: CVE-2025-5025
   - vulnerability: CVE-2025-4802
-  - vulnerability: CVE-2025-5399
