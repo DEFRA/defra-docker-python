@@ -68,10 +68,6 @@ LABEL uk.gov.defra.python.python-version=$PYTHON_VERSION \
       uk.gov.defra.python.version=$DEFRA_VERSION \
       uk.gov.defra.python.repository=defradigital/python
 
-COPY --chown=nonroot:nonroot --from=development /bin/sh /bin/sh
-COPY --chown=nonroot:nonroot --from=development /bin/ls /bin/ls
-COPY --chown=nonroot:nonroot --from=development /bin/echo /bin/echo
-
 # Copy required debian packages from the development stage
 COPY --from=development /bin/curl /bin/curl
 
@@ -83,6 +79,7 @@ COPY --from=development /etc/ssl/certs /etc/ssl/certs
 COPY --from=development /lib/x86_64-linux-gnu/lib* /lib/x86_64-linux-gnu/
 COPY --from=development /usr/local /usr/local
 
+# Copy Python package manager and development tools from the development stage
 COPY --from=development /home/nonroot/.local/bin/uv /home/nonroot/.local/bin/uv
 
 USER nonroot
