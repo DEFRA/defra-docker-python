@@ -5,7 +5,10 @@ ARG PORT_DEBUG=8086
 
 FROM defradigital/python-development:${PARENT_VERSION} AS development
 
+ENV PATH="/home/nonroot/.venv/bin:${PATH}"
 ENV LOG_CONFIG="logging-dev.json"
+
+WORKDIR /home/nonroot
 
 COPY --chown=nonroot:nonroot pyproject.toml .
 COPY --chown=nonroot:nonroot uv.lock .
@@ -21,17 +24,16 @@ ARG PORT_DEBUG=8086
 ENV PORT=${PORT}
 EXPOSE ${PORT} ${PORT_DEBUG}
 
-ENTRYPOINT [ "uv", "run", "--no-sync", "-m", "app.main" ]
+CMD  [ "-m", "app.main" ]
 
 FROM defradigital/python:${PARENT_VERSION} AS production
 
-WORKDIR /home/nonroot
-
+ENV PATH="/home/nonroot/.venv/bin:${PATH}"
 ENV LOG_CONFIG="logging.json"
 
-COPY --chown=nonroot:nonroot --from=development /home/nonroot/.venv .venv
-COPY --chown=nonroot:nonroot --from=development /home/nonroot/pyproject.toml .
-COPY --chown=nonroot:nonroot --from=development /home/nonroot/uv.lock .
+WORKDIR /home/nonroot
+
+COPY --chown=nonroot:nonroot --from=development /home/nonroot/.venv .venv/
 
 COPY --chown=nonroot:nonroot --from=development /home/nonroot/app/ ./app/
 COPY --chown=nonroot:nonroot logging.json .
@@ -40,4 +42,4 @@ ARG PORT
 ENV PORT=${PORT}
 EXPOSE ${PORT}
 
-ENTRYPOINT [ "uv", "run", "--no-sync", "-m", "app.main" ]
+CMD  [ "-m", "app.main" ]
