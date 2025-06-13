@@ -19,9 +19,9 @@ Two parent images are created for each version:
 
 It is recommended that services use [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build) to produce production and development images, each extending the appropriate parent, from a single Dockerfile.
 
-By default, the following packages are installed in the parent images:
+By default, the following packages are installed in development images to support building and debugging:
 - `uv`
-- `pydebug` - for the development image only
+- `pydebug`
 
 Examples have been provided in the [examples](./examples) directory to demonstrate how parent images can be extended.
 
