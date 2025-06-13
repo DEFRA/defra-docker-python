@@ -1,13 +1,16 @@
 # Docker Python
 
+> [!IMPORTANT]
+> Python should **ONLY** be used for creating backend services related to AI or data science.
+
 This repository contains Python parent Docker image source code for Defra.
 
-The following table lists the versions of node available, and the parent Python image they are based on:
+The following table lists the versions of python available, and the parent Python image they are based on:
 
-| Python version  | Parent image       |
-| --------------- | -----------------  |
-| 3.13.3 | 3.13.3-slim-bookworm |
-| 3.12.6 | 3.12.6-slim-bookworm |
+| Python version  | Development parent image       | Production parent image       |
+|-----------------|--------------------------------|-------------------------------|
+| 3.13.3          | 3.13.3-slim-bookworm           | gcr.io/distroless/cc-debian12 |
+| 3.12.6          | 3.12.6-slim-bookworm           | gcr.io/distroless/cc-debian12 |
 
 Two parent images are created for each version:
 
@@ -15,6 +18,15 @@ Two parent images are created for each version:
 - defra-python-development
 
 It is recommended that services use [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build) to produce production and development images, each extending the appropriate parent, from a single Dockerfile.
+
+By default, the following packages are installed in development images to support building and debugging:
+- `uv`
+- `pydebug`
+
+Examples have been provided in the [examples](./examples) directory to demonstrate how parent images can be extended.
+
+The following example Dockerfiles have been provided:
+- [uv](./examples/uv.Dockerfile) - Example of using `uv` to manage dependencies and run a Python service.
 
 ## Supported Python versions
 

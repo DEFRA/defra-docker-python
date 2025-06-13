@@ -60,7 +60,9 @@ jobs:
           docker build . --file Dockerfile --no-cache \
           --target=${{matrix.target}} \
           --build-arg DEFRA_VERSION=$DEFRA_VERSION \
-          --build-arg BASE_VERSION=${{matrix.image.pythonVersion}}-alpine${{matrix.image.alpineVersion}} \
+          --build-arg PYTHON_VERSION=${{matrix.image.pythonVersion}} \
+          --build-arg DEVELOPMENT_VERSION=${{matrix.image.pythonVersion}}-${{matrix.image.debianVersion}} \
+          --build-arg PRODUCTION_VERSION=${{matrix.image.distrolessVersion}} \
           --tag ${{steps.setImageDetails.outputs.fullImageName}} \
           ${{steps.setImageDetails.outputs.latestTag}}
           docker images
@@ -78,14 +80,16 @@ jobs:
       - name: Run Aqua Trivy scan
         id: trivy-scan
         if: ${{ matrix.target == 'production' }}
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@0.31.0
         with:
           image-ref: ${{steps.setImageDetails.outputs.fullImageName}}
           format: sarif
           output: trivy-reports-python-${{ matrix.image.pythonVersion }}
           exit-code: 1
           vuln-type: os,library
+          trivyignores: '.trivyignore'
           severity: CRITICAL,HIGH,MEDIUM
+          limit-severities-for-sarif: true
         continue-on-error: true
 
       - name: Upload Grype SARIF report

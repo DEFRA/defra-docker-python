@@ -1,5 +1,14 @@
 [
-    {"pythonVersion": "3.13.3", "debianVersion": "slim-bookworm", "tags": ["latest-3.13"]},
-    {"pythonVersion": "3.12.10", "debianVersion": "slim-bookworm", "tags": ["latest-3.12"]}
+    {
+        "pythonVersion": "3.13.4",
+        "debianVersion": "slim-bookworm",
+        "distrolessVersion": "cc-debian12",
+        "tags": ["latest-3.13", "latest"]
+    },
+    {
+        "pythonVersion": "3.12.11",
+        "debianVersion": "slim-bookworm",
+        "distrolessVersion": "cc-debian12",
+        "tags": ["latest-3.12"]
+    }
 ]
-
