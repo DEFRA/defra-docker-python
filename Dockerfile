@@ -20,7 +20,6 @@ LABEL uk.gov.defra.python.python-version=$PYTHON_VERSION \
     uk.gov.defra.python.repository=defradigital/python-development
 
 RUN apt update \
-    && apt upgrade -y --no-install-recommends \
     && apt install -y --no-install-recommends \
         ca-certificates \
     && rm -rf /var/lib/apt/lists/*
