@@ -9,3 +9,6 @@ CVE-2025-5025
 
 # Fixed in Debian 13 - Limited exposure as only exploitable locally and production image has no shell.
 CVE-2025-4802
+
+# Fixed in Debian 13 - Waiting for updated Debian image.
+CVE-2025-8058
