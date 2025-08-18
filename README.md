@@ -9,8 +9,8 @@ The following table lists the versions of python available, and the parent Pytho
 
 | Python version  | Development parent image       | Production parent image       |
 |-----------------|--------------------------------|-------------------------------|
-| 3.13.3          | 3.13.3-slim-bookworm           | gcr.io/distroless/cc-debian12 |
-| 3.12.6          | 3.12.6-slim-bookworm           | gcr.io/distroless/cc-debian12 |
+| 3.13.7          | 3.13.7-slim-bookworm           | gcr.io/distroless/cc-debian12 |
+| 3.12.11         | 3.12.11-slim-bookworm          | gcr.io/distroless/cc-debian12 |
 
 Two parent images are created for each version:
 

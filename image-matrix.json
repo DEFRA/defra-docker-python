@@ -1,6 +1,6 @@
 [
     {
-        "pythonVersion": "3.13.4",
+        "pythonVersion": "3.13.7",
         "debianVersion": "slim-bookworm",
         "distrolessVersion": "cc-debian12",
         "tags": ["latest-3.13", "latest"]
