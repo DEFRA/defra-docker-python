@@ -9,5 +9,6 @@ The following issues have been added to the policies exclusion list:
 | CVE-2025-4947  | TLS                | curl      | 09/06/2025 | Waiting for fix - Only exploitable if using WolfSSL as TLS library.                                      |
 | CVE-2025-5025  | TLS                | curl      | 09/06/2025 | Waiting for fix - Only exploitable if using WolfSSL as TLS library.                                      |
 | CVE-2025-4802  | ACE                | libc6     | 09/06/2025 | Fixed in Debian 13 (trixie 2.41-8) - Limited exposure as only exploitable locally and production image has no shell.     |
-| CVE-2025-6069  | HTML Parsing       | python    | 18/08/2025 | Affects 3.12 and < 3.13.6 - DoS vulnerability when processing malformed HTML. Waiting for updated Python base image. |
+| CVE-2025-6069  | DoS                | python    | 18/08/2025 | Affects 3.12 and < 3.13.6 - DoS vulnerability when processing malformed HTML. Waiting for updated Python base image. |
 | CVE-2025-8058  | ACE                | libc6     | 18/08/2025 | Fixed in Debian 13 (trixie 2.41-11) - Waiting for updated Debian image. |
+| CVE-2025-8194  | DoS                | python    | 18/08/2025 | Affects 3.12 and < 3.13.6 - DoS vulnerability when extracting malciously crafted tar files. Waiting for updated Python base image. |
