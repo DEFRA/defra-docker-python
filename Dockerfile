@@ -1,5 +1,5 @@
 # Set default values for build arguments
-ARG DEFRA_VERSION=1.1.0
+ARG DEFRA_VERSION=1.1.2
 ARG PYTHON_VERSION=3.13.7
 ARG DEVELOPMENT_VERSION=3.13.7-slim-bookworm
 ARG PRODUCTION_VERSION=cc-debian12
