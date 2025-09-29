@@ -1,5 +1,5 @@
 # Set default values for build arguments
-ARG DEFRA_VERSION=1.1.2
+ARG DEFRA_VERSION=1.1.3
 ARG PYTHON_VERSION=3.13.7
 ARG DEVELOPMENT_VERSION=3.13.7-slim-bookworm
 ARG PRODUCTION_VERSION=cc-debian12
@@ -35,11 +35,13 @@ RUN addgroup --gid 1000 nonroot \
         --gid 1000 \
         --home /home/nonroot \
         --shell /bin/bash
-    
+
+# Ensure pip is at latest version
+RUN python -m pip install --upgrade pip --force-reinstall
+
 USER nonroot
 WORKDIR /home/nonroot
 
-# Install Python package manager and development tools
 RUN python -m pip install --no-cache-dir uv pydebug
 
 ENTRYPOINT [ "python" ]
