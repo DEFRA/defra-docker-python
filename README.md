@@ -7,10 +7,10 @@ This repository contains Python parent Docker image source code for Defra.
 
 The following table lists the versions of python available, and the parent Python image they are based on:
 
-| Python version  | Development parent image       | Production parent image       |
-|-----------------|--------------------------------|-------------------------------|
-| 3.13.7          | 3.13.7-slim-bookworm           | gcr.io/distroless/cc-debian12 |
-| 3.12.11         | 3.12.11-slim-bookworm          | gcr.io/distroless/cc-debian12 |
+| Python version  | Parent image        |
+|-----------------|---------------------|
+| 3.13.9          | 3.13.9-slim-trixie  |
+| 3.12.12         | 3.12.12-slim-trixie |
 
 Two parent images are created for each version:
 

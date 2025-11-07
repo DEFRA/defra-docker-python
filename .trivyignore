@@ -1,8 +1,5 @@
-# Affects Python 3.12 and 3.13 - Waiting for fix to propagate down from 3.14 (prerelease). Workaround possible using try-except rather than error=handler with "bytes.decode" and "unicode_escape".
-CVE-2025-4516
+# Fixed in Debian 14 (testing) - Waiting for fix to propagate down to Debian 13 (stable)
+CVE-2025-7709
 
-# Fixed in Debian 13 - Limited exposure as only exploitable locally and production image has no shell.
-CVE-2025-4802
-
-# Fixed in Debian 13 - Waiting for updated Debian image.
-CVE-2025-8058
+# Python vulnerability - Waiting for 3.13 patch. Security fix pushed for 3.12
+CVE-2025-8291

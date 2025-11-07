@@ -3,10 +3,7 @@
 
 ## Known issues
 The following issues have been added to the policies exclusion list:
-| CVE ID         | Type               | Component | Date       | Reason                                                                                                   |
-|----------------|--------------------|-----------|------------|----------------------------------------------------------------------------------------------------------|
-| CVE-2025-4516  | Unicode escaping   | python    | 09/06/2025 | Affects 3.12 and 3.13 - Waiting for fix to propagate down from 3.14 (prerelease). Workaround possible using try-except rather than error=handler with "bytes.decode" and "unicode_escape". |
-| CVE-2025-4802  | ACE                | libc6     | 09/06/2025 | Fixed in Debian 13 (trixie 2.41-8) - Waiting for updated Debian image. |
-| CVE-2025-6069  | DoS                | python    | 18/08/2025 | Affects 3.12 and < 3.13.6 - DoS vulnerability when processing malformed HTML. Waiting for updated Python base image. |
-| CVE-2025-8058  | ACE                | libc6     | 18/08/2025 | Fixed in Debian 13 (trixie 2.41-11) - Waiting for updated Debian image. |
-| CVE-2025-8194  | DoS                | python    | 18/08/2025 | Affects 3.12 and < 3.13.6 - DoS vulnerability when extracting malciously crafted tar files. Waiting for updated Python base image. |
+| CVE ID        | Type                | Component    | Date       | Reason                                                                       |
+|---------------|---------------------|--------------|------------|------------------------------------------------------------------------------|
+| CVE-2025-7709 | Integer Overflow    | libsqlite3-0 | 07/11/2025 | Fixed in Debian 14 (testing) - Waiting for fix to propagate down to Debian 13 (stable) |
+| CVE-2025-8291 | Improper Validation | python       | 07/11/2025 | Waiting for 3.13 patch. Security fix pushed for 3.12                       |
