@@ -1,14 +1,12 @@
 [
     {
-        "pythonVersion": "3.13.7",
-        "debianVersion": "slim-bookworm",
-        "distrolessVersion": "cc-debian12",
+        "pythonVersion": "3.13.9",
+        "debianVersion": "slim-trixie",
         "tags": ["latest-3.13", "latest"]
     },
     {
-        "pythonVersion": "3.12.11",
-        "debianVersion": "slim-bookworm",
-        "distrolessVersion": "cc-debian12",
+        "pythonVersion": "3.12.12",
+        "debianVersion": "slim-trixie",
         "tags": ["latest-3.12"]
     }
 ]
