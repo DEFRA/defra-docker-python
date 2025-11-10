@@ -12,7 +12,7 @@ jobs:
     outputs:
       image: ${{ steps.set-var.outputs.image }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - id: set-var
         run: |
@@ -28,7 +28,7 @@ jobs:
         target: ["development", "production"]
         image: ${{fromJSON(needs.get-matrix-values.outputs.image)}}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - id: setEnv
         name: Set Job env vars
@@ -68,7 +68,7 @@ jobs:
       - name: Run Anchore Grype scan
         id: grype-scan
         if: ${{ matrix.target == 'production' }}
-        uses: anchore/scan-action@v6
+        uses: anchore/scan-action@v7
         with:
           image: ${{steps.setImageDetails.outputs.fullImageName}}
           fail-build: true
@@ -78,7 +78,7 @@ jobs:
       - name: Run Aqua Trivy scan
         id: trivy-scan
         if: ${{ matrix.target == 'production' }}
-        uses: aquasecurity/trivy-action@0.31.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: ${{steps.setImageDetails.outputs.fullImageName}}
           format: sarif
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-images
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
 
     - name: Create GitHub release
       if: github.ref == 'refs/heads/main'
