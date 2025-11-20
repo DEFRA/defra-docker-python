@@ -32,23 +32,27 @@ jobs:
       
       - name: Run Anchore Grype scan
         id: grype-scan
-        uses: anchore/scan-action@v6
+        if: ${{ matrix.target == 'production' }}
+        uses: anchore/scan-action@v7.2.0
         with:
-          image: defradigital/${{env.IMAGE_NAME}}:${{env.DEFRA_VERSION}}-python${{matrix.image.pythonVersion}}
+          image: ${{steps.setImageDetails.outputs.fullImageName}}
           fail-build: true
           severity-cutoff: "medium"
         continue-on-error: true
 
       - name: Run Aqua Trivy scan
         id: trivy-scan
-        uses: aquasecurity/trivy-action@0.30.0
+        if: ${{ matrix.target == 'production' }}
+        uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: defradigital/${{env.IMAGE_NAME}}:${{env.DEFRA_VERSION}}-python${{matrix.image.pythonVersion}}
+          image-ref: ${{steps.setImageDetails.outputs.fullImageName}}
           format: sarif
           output: trivy-reports-python-${{ matrix.image.pythonVersion }}
           exit-code: 1
           vuln-type: os,library
+          trivyignores: '.trivyignore'
           severity: CRITICAL,HIGH,MEDIUM
+          limit-severities-for-sarif: true
         continue-on-error: true
 
       - name: Upload Grype SARIF report
