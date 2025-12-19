@@ -1,2 +1,5 @@
 # Fixed in Debian 14 (testing) - Waiting for fix to propagate down to Debian 13 (stable)
 CVE-2025-7709
+
+# Waiting for fix to be included in Debian stable release
+CVE-2025-14104
