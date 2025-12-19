@@ -1,7 +1,7 @@
 # Set default values for build arguments
 ARG DEFRA_VERSION=2.0.1
-ARG BASE_VERSION=3.13.9-slim-trixie
-ARG PYTHON_VERSION=3.13.9
+ARG BASE_VERSION=3.13.11-slim-trixie
+ARG PYTHON_VERSION=3.13.11
 
 FROM python:${BASE_VERSION} AS production
 
