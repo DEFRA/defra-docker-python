@@ -49,6 +49,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: trivy-reports-python-${{ matrix.image.pythonVersion }}
+          path: trivy-reports-python-${{ matrix.image.pythonVersion }}
 
       - name: Fail build if scan failed
         if: ${{ steps.trivy-scan.outcome == 'failure' }}
