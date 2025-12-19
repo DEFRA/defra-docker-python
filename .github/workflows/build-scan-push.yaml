@@ -57,7 +57,9 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build . --file Dockerfile --no-cache \
+          docker buildx build . --file Dockerfile \ 
+          --platform linux/amd64,linux/arm64 \
+          --no-cache \
           --target=${{matrix.target}} \
           --build-arg DEFRA_VERSION=$DEFRA_VERSION \
           --build-arg BASE_VERSION=${{matrix.image.pythonVersion}}-${{matrix.image.debianVersion}} \

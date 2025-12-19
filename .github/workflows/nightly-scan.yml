@@ -35,7 +35,7 @@ jobs:
         if: ${{ matrix.target == 'production' }}
         uses: anchore/scan-action@v7.2.0
         with:
-          image: ${{steps.setImageDetails.outputs.fullImageName}}
+          image: defradigital/${{env.IMAGE_NAME}}:${{env.DEFRA_VERSION}}-node${{matrix.image.pythonVersion}}
           fail-build: true
           severity-cutoff: "medium"
         continue-on-error: true
@@ -45,7 +45,7 @@ jobs:
         if: ${{ matrix.target == 'production' }}
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: ${{steps.setImageDetails.outputs.fullImageName}}
+          image-ref: defradigital/${{env.IMAGE_NAME}}:${{env.DEFRA_VERSION}}-node${{matrix.image.pythonVersion}}
           format: sarif
           output: trivy-reports-python-${{ matrix.image.pythonVersion }}
           exit-code: 1
