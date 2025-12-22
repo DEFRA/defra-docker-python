@@ -106,6 +106,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: defra-python-${{ matrix.image.pythonVersion }}.tar
+          scan-type: image
           format: sarif
           output: trivy-reports-python-${{ matrix.image.pythonVersion }}
           exit-code: 1
