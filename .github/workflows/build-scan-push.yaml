@@ -84,6 +84,12 @@ jobs:
           ${{steps.setImageDetails.outputs.latestTag}}
           docker images
 
+      - name: Save image to archive
+        if: ${{ matrix.target == 'production' }}
+        run: |
+          docker save ${{steps.setImageDetails.outputs.fullImageName}} -o image-${{ matrix.image.pythonVersion }}.tar
+          ls -lh image-${{ matrix.image.pythonVersion }}.tar
+
       - name: Run Anchore Grype scan
         id: grype-scan
         if: ${{ matrix.target == 'production' }}
