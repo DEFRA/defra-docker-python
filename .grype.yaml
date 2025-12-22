@@ -1,3 +1,5 @@
 ignore:
   - vulnerability: CVE-2025-7709
   - vulnerability: CVE-2025-14104
+  - vulnerability: CVE-2025-12084
+  - vulnerability: CVE-2025-13836

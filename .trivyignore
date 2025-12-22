@@ -3,3 +3,9 @@ CVE-2025-7709
 
 # Waiting for fix to be included in Debian stable release
 CVE-2025-14104
+
+# Fixed in python 3.13, waiting for fix to propagate to 3.12 security release. Only impacts heavily nested XML files.
+CVE-2025-12084
+
+# Fixed in python 3.13, waiting for fix to propagate to 3.12 security release.
+CVE-2025-13836
