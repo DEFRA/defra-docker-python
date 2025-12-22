@@ -87,15 +87,15 @@ jobs:
       - name: Save image to archive
         if: ${{ matrix.target == 'production' }}
         run: |
-          docker save ${{steps.setImageDetails.outputs.fullImageName}} -o defra-python-${{ matrix.image.pythonVersion }}.tar
-          ls -lh defra-python-${{ matrix.image.pythonVersion }}.tar
+          docker save ${{steps.setImageDetails.outputs.fullImageName}} -o image-${{ matrix.image.pythonVersion }}.tar
+          ls -lh image-${{ matrix.image.pythonVersion }}.tar
 
       - name: Run Anchore Grype scan
         id: grype-scan
         if: ${{ matrix.target == 'production' }}
         uses: anchore/scan-action@v7.2.0
         with:
-          image: docker-archive:defra-python-${{ matrix.image.pythonVersion }}.tar
+          image: docker-archive:image-${{ matrix.image.pythonVersion }}.tar
           fail-build: true
           severity-cutoff: "medium"
         continue-on-error: true
@@ -105,7 +105,7 @@ jobs:
         if: ${{ matrix.target == 'production' }}
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: defra-python-${{ matrix.image.pythonVersion }}.tar
+          image-ref: image-${{ matrix.image.pythonVersion }}.tar
           scan-type: image
           format: sarif
           output: trivy-reports-python-${{ matrix.image.pythonVersion }}
