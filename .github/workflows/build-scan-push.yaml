@@ -96,7 +96,6 @@ jobs:
         uses: anchore/scan-action@v7.2.0
         with:
           image: docker-archive:defra-python-${{ matrix.image.pythonVersion }}.tar
-          output-format: table
           fail-build: true
           severity-cutoff: "medium"
         continue-on-error: true
