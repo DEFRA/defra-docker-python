@@ -30,6 +30,22 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Set up Docker
+        uses: docker/setup-docker-action@v4
+        with:
+          daemon-config: |
+            {
+              "features": {
+                "containerd-snapshotter": true
+              }
+            }
+        
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - id: setEnv
         name: Set Job env vars
         run: |
@@ -57,20 +73,30 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build . --file Dockerfile --no-cache \
+          docker buildx build . --file Dockerfile \
+          --no-cache \
+          --platform linux/amd64,linux/arm64 \
+          --load \
           --target=${{matrix.target}} \
           --build-arg DEFRA_VERSION=$DEFRA_VERSION \
           --build-arg BASE_VERSION=${{matrix.image.pythonVersion}}-${{matrix.image.debianVersion}} \
+          --build-arg PYTHON_VERSION=${{matrix.image.pythonVersion}} \
           --tag ${{steps.setImageDetails.outputs.fullImageName}} \
           ${{steps.setImageDetails.outputs.latestTag}}
           docker images
+
+      - name: Save image to archive
+        if: ${{ matrix.target == 'production' }}
+        run: |
+          docker save ${{steps.setImageDetails.outputs.fullImageName}} -o defra-python-${{ matrix.image.pythonVersion }}.tar
+          ls -lh defra-python-${{ matrix.image.pythonVersion }}.tar
 
       - name: Run Anchore Grype scan
         id: grype-scan
         if: ${{ matrix.target == 'production' }}
         uses: anchore/scan-action@v7.2.0
         with:
-          image: ${{steps.setImageDetails.outputs.fullImageName}}
+          image: docker-archive:defra-python-${{ matrix.image.pythonVersion }}.tar
           fail-build: true
           severity-cutoff: "medium"
         continue-on-error: true
@@ -80,7 +106,8 @@ jobs:
         if: ${{ matrix.target == 'production' }}
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: ${{steps.setImageDetails.outputs.fullImageName}}
+          input: defra-python-${{ matrix.image.pythonVersion }}.tar
+          scan-type: image
           format: sarif
           output: trivy-reports-python-${{ matrix.image.pythonVersion }}
           exit-code: 1
