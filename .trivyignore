@@ -1,7 +1,4 @@
-# Fixed in Debian 14 (testing) - Waiting for fix to propagate down to Debian 13 (stable)
-CVE-2025-7709
-
-# Waiting for fix to be included in Debian stable release
+# util-linux fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
 CVE-2025-14104
 
 # Fixed in python 3.13, waiting for fix to propagate to 3.12 security release. Only impacts heavily nested XML files.
@@ -9,3 +6,27 @@ CVE-2025-12084
 
 # Fixed in python 3.13, waiting for fix to propagate to 3.12 security release.
 CVE-2025-13836
+
+# Fixed in python 3.15, waiting for fix to propagate to <3.15.0 releases.
+CVE-2026-0865
+CVE-2025-15282
+CVE-2026-0672
+CVE-2025-15366
+CVE-2025-15367
+CVE-2025-11468
+CVE-2025-12781
+CVE-2026-1299
+
+# Backported 3.46.1-9 from Debian testing to fix CVE-2025-7709, waiting for fix to propagate to Debian stable release.
+CVE-2025-7709
+
+# glibc marked as won't fix - Waiting for backport or fix in next Debian stable release, but significant system stability risks with backporting / upgrading glibc.
+CVE-2025-15281
+CVE-2026-0915
+CVE-2026-0861
+
+# ncurses fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
+CVE-2025-6141
+CVE-2025-6075
+CVE-2025-13837
+
