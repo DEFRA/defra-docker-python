@@ -3,6 +3,8 @@ ARG DEFRA_VERSION=2.2.0
 ARG BASE_VERSION=3.13.12-slim-trixie
 ARG PYTHON_VERSION=3.13.12
 
+# Builder stage to support backporting packages from Debian testing
+# See [IMAGE_SCANNING.md](IMAGE_SCANNING.md) for details on the backporting process and considerations.
 FROM python:${BASE_VERSION} AS builder
 
 RUN apt update \
@@ -16,16 +18,6 @@ RUN apt update \
 
 RUN printf "Types: deb-src\nURIs: http://deb.debian.org/debian\nSuites: testing\nComponents: main\nSigned-By: /usr/share/keyrings/debian-archive-keyring.gpg\n" > /etc/apt/sources.list.d/testing-src.sources \
     && apt update
-
-RUN mkdir -p /tmp/backport-builds/sqlite3 \
-    && cd /tmp/backport-builds/sqlite3 \
-    && apt source sqlite3=3.46.1-9/testing \
-    && cd sqlite3-* \
-    && mk-build-deps --install --tool='apt-get -y' --remove \
-    && dch --bpo "CVE-2025-7709: backport to patch sqlite3 vulnerability" \
-    && dpkg-buildpackage --build=binary --unsigned-changes
-
-ENTRYPOINT [ "/bin/bash" ]
 
 FROM python:${BASE_VERSION} AS production
 
@@ -49,12 +41,6 @@ LABEL uk.gov.defra.python.python-version=$BASE_VERSION \
 RUN apt update \
     && apt install -y --no-install-recommends \
         ca-certificates
-
-# Install backported sqlite3 to patch CVE-2025-7709
-RUN --mount=from=builder,type=bind,target=/tmp/backport-builds/sqlite3 \
-    find /tmp/backport-builds/sqlite3 -name "lemon_*.deb" ! -name "*-dbgsym*" -exec apt install -y {} + \
-    && find /tmp/backport-builds/sqlite3 -name "libsqlite3-*.deb" ! -name "*-dbgsym*" -exec apt install -y {} + \
-    && find /tmp/backport-builds/sqlite3 -name "sqlite3*.deb" ! -name "*-dbgsym*" -exec apt install -y {} +
 
 RUN rm -rf /var/lib/apt/lists/*
 

@@ -5,7 +5,7 @@
 The following OS / base image issues have been added to the policies exclusion list:
 | CVE ID | Type | Component | Date Added | Reason |
 |------------------------|------|-----------|------|--------|
-| CVE-2025-7709 | Integer overflow | libsqlite3-0 | 07/11/2025 | Patched by backporting `3.46.1-9` from Debian testing - waiting for fix to propagate to Debian stable release. |
+| CVE-2025-7709 | Integer overflow | libsqlite3-0 | 07/11/2025 | Fixed in Debian testing - Risk not enough to warrant backport build time |
 | CVE-2025-14104 | Buffer overread | util-linux | 19/12/2025 | Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement - Fix might only be possible in next Debian stable release. |
 | CVE-2025-15281 | Uninitialised memory | glibc (libc-bin, libc-dev-bin, libc6, libc6-dev) | 16/02/2026 | Fixed in Debian testing (forky) but significant system stability risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. |
 | CVE-2026-0915 | Information Leak / Use of Uninitialized Resource | glibc (libc-bin, libc-dev-bin, libc6, libc6-dev) | 16/02/2026 | Fixed in Debian testing (forky) but significant system stability risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. |
