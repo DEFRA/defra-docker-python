@@ -1,12 +1,29 @@
 # Set default values for build arguments
-ARG DEFRA_VERSION=2.1.0
-ARG BASE_VERSION=3.13.11-slim-trixie
-ARG PYTHON_VERSION=3.13.11
+ARG DEFRA_VERSION=2.2.0
+ARG BASE_VERSION=3.14.3-slim-trixie
+ARG PYTHON_VERSION=3.14.3
+
+# Builder stage to support backporting packages from Debian testing
+# See [IMAGE_SCANNING.md](IMAGE_SCANNING.md) for details on the backporting process and considerations.
+FROM python:${BASE_VERSION} AS builder
+
+RUN apt update \
+    && apt install -y --no-install-recommends \
+        build-essential \
+        dpkg-dev \
+        debian-keyring \
+        devscripts \
+        equivs \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN printf "Types: deb-src\nURIs: http://deb.debian.org/debian\nSuites: testing\nComponents: main\nSigned-By: /usr/share/keyrings/debian-archive-keyring.gpg\n" > /etc/apt/sources.list.d/testing-src.sources \
+    && apt update
 
 FROM python:${BASE_VERSION} AS production
 
 ARG DEFRA_VERSION
 ARG BASE_VERSION
+ARG PYTHON_VERSION
 
 ENV PATH="/home/nonroot/.local/bin:$PATH"
 ENV PYTHONUNBUFFERED=1
@@ -23,12 +40,17 @@ LABEL uk.gov.defra.python.python-version=$BASE_VERSION \
 
 RUN apt update \
     && apt install -y --no-install-recommends \
-        ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+        ca-certificates
+
+RUN rm -rf /var/lib/apt/lists/*
 
 # Install Internal CA certificate for firewall and Zscaler proxy
 COPY certificates/internal-ca.crt /usr/local/share/ca-certificates/internal-ca.crt
+
 RUN chmod 644 /usr/local/share/ca-certificates/internal-ca.crt && update-ca-certificates
+
+# Upgrade system pip (run as root so the system-wide pip is replaced)
+RUN python -m pip install --upgrade --force-reinstall pip
 
 # Create a non-root user for running Python applications
 RUN addgroup --gid 1000 nonroot \
@@ -38,16 +60,15 @@ RUN addgroup --gid 1000 nonroot \
         --home /home/nonroot \
         --shell /bin/bash
 
-# Ensure pip is at latest version
-RUN python -m pip install --upgrade pip --force-reinstall
-
 USER nonroot
 
 WORKDIR /home/nonroot
 
-ENTRYPOINT [ "python" ]
-
 FROM production AS development
+
+ARG DEFRA_VERSION
+ARG BASE_VERSION
+ARG PYTHON_VERSION
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
