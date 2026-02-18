@@ -1,7 +1,7 @@
 # Set default values for build arguments
 ARG DEFRA_VERSION=2.2.0
-ARG BASE_VERSION=3.13.12-slim-trixie
-ARG PYTHON_VERSION=3.13.12
+ARG BASE_VERSION=3.14.3-slim-trixie
+ARG PYTHON_VERSION=3.14.3
 
 # Builder stage to support backporting packages from Debian testing
 # See [IMAGE_SCANNING.md](IMAGE_SCANNING.md) for details on the backporting process and considerations.
