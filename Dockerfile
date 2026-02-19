@@ -1,5 +1,5 @@
 # Set default values for build arguments
-ARG DEFRA_VERSION=2.2.0
+ARG DEFRA_VERSION=2.2.1
 ARG BASE_VERSION=3.14.3-slim-trixie
 ARG PYTHON_VERSION=3.14.3
 
@@ -63,6 +63,8 @@ RUN addgroup --gid 1000 nonroot \
 USER nonroot
 
 WORKDIR /home/nonroot
+
+ENTRYPOINT [ "python" ]
 
 FROM production AS development
 
