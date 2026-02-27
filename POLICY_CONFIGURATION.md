@@ -11,6 +11,7 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2026-0915 | Information Leak / Use of Uninitialized Resource | glibc (libc-bin, libc-dev-bin, libc6, libc6-dev) | 16/02/2026 | Fixed in Debian testing (forky) but significant system stability risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. |
 | CVE-2026-0861 | Integer Overflow | glibc (libc-bin, libc-dev-bin, libc6, libc6-dev) | 16/02/2026 | Fixed in Debian testing (forky) but significant system stability risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. |
 | CVE-2025-6141 | Stack-based Buffer Overflow | ncurses (libncursesw6, libtinfo6, ncurses-base, ncurses-bin) | 16/02/2026 | Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement - Fix might only be possible in next Debian stable release. |
+| CVE-2026-27171 | CPU Consumption / DoS | zlib1g | 26/02/2026 | Fixed in zlib 1.3.2. Awaiting release of Debian package with zlib 1.3.2 - fix might only be possible in next Debian stable release. |
 
 ### Python issues
 The following Python issues have been added to the policies exclusion list:
