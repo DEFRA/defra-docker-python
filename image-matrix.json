@@ -10,7 +10,7 @@
         "tags": ["latest-3.13"]
     },
     {
-        "pythonVersion": "3.12.12",
+        "pythonVersion": "3.12.13",
         "debianVersion": "slim-trixie",
         "tags": ["latest-3.12"]
     }
