@@ -1,5 +1,5 @@
 # Set default values for build arguments
-ARG DEFRA_VERSION=2.2.2
+ARG DEFRA_VERSION=2.3.0
 ARG BASE_VERSION=3.14.3-slim-trixie
 ARG PYTHON_VERSION=3.14.3
 
