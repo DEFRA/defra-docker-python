@@ -1,7 +1,9 @@
 ignore:
   - vulnerability: CVE-2025-14104
   - vulnerability: CVE-2025-12084
+  # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit 9c9dda6) release, waiting for Grype DB update.
   - vulnerability: CVE-2025-13836
+  # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit 14b1fdb) release, waiting for Grype DB update.
   - vulnerability: CVE-2025-7709
   - vulnerability: CVE-2026-0865
   - vulnerability: CVE-2025-15282
@@ -16,5 +18,7 @@ ignore:
   - vulnerability: CVE-2026-0861
   - vulnerability: CVE-2025-6141
   - vulnerability: CVE-2025-6075
+  # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit c8a5f34) release, waiting for Grype DB update.
   - vulnerability: CVE-2025-13837
   - vulnerability: CVE-2026-27171
+  - vulnerability: CVE-2026-2297
