@@ -22,3 +22,5 @@ ignore:
   - vulnerability: CVE-2025-13837
   - vulnerability: CVE-2026-27171
   - vulnerability: CVE-2026-2297
+  # Exploitation depends on a custom polkit policy; polkit not present in base image
+  - vulnerability: CVE-2026-4105

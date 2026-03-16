@@ -28,3 +28,6 @@ CVE-2026-27171
 
 # Fixed in python 3.15, waiting for fix to propagate to <3.15 releases.
 CVE-2026-2297
+
+# systemd polkit policy required for exploitation; polkit not installed in base image
+CVE-2026-4105
