@@ -11,7 +11,7 @@ jobs:
     outputs:
       image: ${{ steps.set-var.outputs.image }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - id: set-var
         run: |
           echo 'image<<EOF' >> $GITHUB_OUTPUT
@@ -25,14 +25,14 @@ jobs:
       matrix:
         image: ${{fromJSON(needs.get-matrix-values.outputs.image)}}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Set job environment variables
         run:  cat JOB.env >> $GITHUB_ENV
 
       - name: Run Aqua Trivy scan
         id: trivy-scan
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
         with:
           image-ref: defradigital/${{env.IMAGE_NAME}}:${{env.DEFRA_VERSION}}-python${{matrix.image.pythonVersion}}
           format: sarif
@@ -46,7 +46,7 @@ jobs:
 
       - name: Upload Trivy SARIF report
         if: ${{ steps.trivy-scan.outcome == 'failure' }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
           name: trivy-reports-python-${{ matrix.image.pythonVersion }}
           path: trivy-reports-python-${{ matrix.image.pythonVersion }}
@@ -64,14 +64,14 @@ jobs:
       matrix:
         image: ${{fromJSON(needs.get-matrix-values.outputs.image)}}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Set job environment variables
         run:  cat JOB.env >> $GITHUB_ENV
       
       - name: Run Anchore Grype scan
         id: grype-scan
-        uses: anchore/scan-action@v7.2.0
+        uses: anchore/scan-action@7037fa011853d5a11690026fb85feee79f4c946c
         with:
           image: defradigital/${{env.IMAGE_NAME}}:${{env.DEFRA_VERSION}}-python${{matrix.image.pythonVersion}}
           fail-build: true
@@ -80,7 +80,7 @@ jobs:
 
       - name: Upload Grype SARIF report
         if: ${{ steps.grype-scan.outcome == 'failure' }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
           name: grype-reports-python-${{ matrix.image.pythonVersion }}
           path: ${{ steps.grype-scan.outputs.sarif }}
