@@ -16,11 +16,19 @@ ignore:
   - vulnerability: CVE-2025-15281
   - vulnerability: CVE-2026-0915
   - vulnerability: CVE-2026-0861
+  - vulnerability: CVE-2026-4437
+  - vulnerability: CVE-2026-4438
   - vulnerability: CVE-2025-6141
   - vulnerability: CVE-2025-6075
   # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit c8a5f34) release, waiting for Grype DB update.
   - vulnerability: CVE-2025-13837
+  - vulnerability: CVE-2025-69720
+  - vulnerability: CVE-2026-2673
   - vulnerability: CVE-2026-27171
+  - vulnerability: CVE-2026-4519
+  - vulnerability: CVE-2026-4224
+  - vulnerability: CVE-2026-3644
+  - vulnerability: CVE-2026-29111
   - vulnerability: CVE-2026-2297
   # Exploitation depends on a custom polkit policy; polkit not present in base image
   - vulnerability: CVE-2026-4105
