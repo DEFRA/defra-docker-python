@@ -1,5 +1,5 @@
 # Set default values for build arguments
-ARG DEFRA_VERSION=2.4.1
+ARG DEFRA_VERSION=2.5.0
 ARG BASE_VERSION=3.14.3-slim-trixie
 ARG PYTHON_VERSION=3.14.3
 
@@ -39,6 +39,7 @@ LABEL uk.gov.defra.python.python-version=$BASE_VERSION \
     uk.gov.defra.python.repository=defradigital/python
 
 RUN apt update \
+    && apt upgrade -y --no-install-recommends \
     && apt install -y --no-install-recommends \
         ca-certificates
 
