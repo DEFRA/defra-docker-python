@@ -14,6 +14,10 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2026-4437 | DNS Verification Bypass | libc (libc6, libc-bin) | 26/03/2026 | Still waiting for fix in unstable package. Risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. |
 | CVE-2026-4438 | DNS Verification Bypass | libc (libc6, libc-bin) | 26/03/2026 | Still waiting for fix in unstable package. Risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. |
 | CVE-2026-29111 | Execution freeze / DoS | systemd | 26/03/2026 | Fixed in Debian testing - Risk not enough to warrant backport build time. Can't be executed remotely and requires local access |
+| CVE-2026-4046 | Character Set Conversion | libc (libc6, libc-bin) | 02/04/2026 | Waiting for fix in unstable package. Risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. Can be mitigated by removing IBM1390 and IBM1399 charsets if not needed. |
+| CVE-2026-5704 | Hidden File Injection | tar | 07/04/2026 | Can be mitigated by not extracting untrusted tar files with `tar` - only a risk if users are extracting untrusted tar files within the container. |
+| CVE-2026-27456 | TOCTOU / Unauthorized file read | util-linux | 07/04/2026 | Not exploitable in this container image. Exploitation requires an `/etc/fstab` entry with `user,loop` options |
+| CVE-2026-34743 | Buffer overflow | xz-utils | | 07/04/2026 | Fixed in unstable - waiting for new Debian release with fix |
 
 ### Python issues
 The following Python issues have been added to the policies exclusion list:

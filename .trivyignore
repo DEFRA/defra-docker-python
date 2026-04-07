@@ -11,9 +11,6 @@ CVE-2025-11468
 CVE-2025-12781
 CVE-2026-1299
 
-# Waiting for fix to propagate to Debian stable release.
-CVE-2025-7709
-
 # glibc marked as won't fix - Waiting for backport or fix in next Debian stable release, but significant system stability risks with backporting / upgrading glibc.
 CVE-2025-15281
 CVE-2026-0915
@@ -41,3 +38,14 @@ CVE-2026-3644
 # systemd polkit policy required for exploitation; polkit not installed in base image
 CVE-2026-4105
 CVE-2026-29111
+
+CVE-2026-4046
+
+# Hidden File Injection in tar — mitigate by not extracting untrusted tar files.
+CVE-2026-5704
+
+# TOCTOU / Unauthorized file read in util-linux. Not exploitable in this container image; requires /etc/fstab with user,loop options.
+CVE-2026-27456
+
+# Buffer overflow in xz-utils — fixed in unstable; waiting for new Debian release with fix
+CVE-2026-34743
