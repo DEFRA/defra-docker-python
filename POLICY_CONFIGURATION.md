@@ -51,3 +51,4 @@ The following Python issues have been added to the policies exclusion list:
 | CVE-2026-3298 | Boundary Check Bypass | python | 26/03/2026 | `<3.14` | Patched for 3.13 and 3.14 - Pending patch and fix release to `<3.14.3` releases. Only impacts Windows platforms. |
 | CVE-2026-1502 | HTTP special char injection | python | 26/03/2026 | `<3.14` | Patched in all version branches - Pending fix release to `<3.14.3` releases. |
 | CVE-2026-4786 | URL corruption | python | 12/05/2026 | `<3.14` | Additional CVE raised to address remaining URL corruption issue - previous fixes did not fully address the issue. Pending fix release to `<3.14.5` releases. |
+| CVE-2026-6100 | Arbitrary code execution | python | 12/05/2026 | `<3.14.5` | Fix included in `3.14.5` release (see commit [48c3c7f](https://github.com/python/cpython/commit/48c3c7fb730e447ae1d8d2dec8f4a8b145687567)). Grype DB still shows this as vulnerable; waiting for DB update. Awaiting fix release to `3.13` and `3.12`. |
