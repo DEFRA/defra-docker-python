@@ -22,6 +22,8 @@ ignore:
   - vulnerability: CVE-2026-2673
   - vulnerability: CVE-2026-27171
   - vulnerability: CVE-2026-4519
+  - vulnerability: CVE-2026-3298
+  - vulnerability: CVE-2026-1502
   - vulnerability: CVE-2026-4224
   - vulnerability: CVE-2026-3644
   - vulnerability: CVE-2026-29111
@@ -32,3 +34,13 @@ ignore:
   - vulnerability: CVE-2026-27456
   - vulnerability: CVE-2026-5704
   - vulnerability: CVE-2026-34743
+  - vulnerability: CVE-2026-3184
+  - vulnerability: CVE-2026-5435
+  - vulnerability: CVE-2026-5450
+  - vulnerability: CVE-2026-5928
+  - vulnerability: CVE-2026-6238
+  - vulnerability: CVE-2026-4878
+  - vulnerability: CVE-2026-40225
+  - vulnerability: CVE-2026-5958
+  - vulnerability: CVE-2026-40226
+  - vulnerability: CVE-2026-4786

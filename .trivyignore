@@ -32,8 +32,11 @@ CVE-2026-27171
 # Fixed in python 3.15, waiting for fix to propagate to <3.15 releases.
 CVE-2026-2297
 CVE-2026-4519
+CVE-2026-3298
+CVE-2026-1502
 CVE-2026-4224
 CVE-2026-3644
+CVE-2026-4786
 
 # systemd polkit policy required for exploitation; polkit not installed in base image
 CVE-2026-4105
@@ -49,3 +52,33 @@ CVE-2026-27456
 
 # Buffer overflow in xz-utils — fixed in unstable; waiting for new Debian release with fix
 CVE-2026-34743
+
+# Hostname spoofing in util-linux. Waiting for fix in unstable - fix might only be possible in next Debian stable release.
+CVE-2026-3184
+
+# Out-of-bounds write in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+CVE-2026-5435
+
+# Buffer overflow in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+CVE-2026-5450
+
+# Buffer overread in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+CVE-2026-5928
+
+# DNS Verification Bypass in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+CVE-2026-6238
+
+# Privilege escalation in libcap2. Fixed in Debian testing - Waiting for backport to stable.
+CVE-2026-4878
+
+# Privilege escalation in systemd. Fixed in Debian testing - Waiting for backport to stable. Exploitation requires a malicious hardware device.
+CVE-2026-40225
+
+# Filesystem overwrite in sed. Fixed in Debian testing - Waiting for backport to stable.
+CVE-2026-5958
+
+# Escape-to-host vulnerability in systemd. Fixed in Debian testing - Waiting for backport to stable. Requires a specially crafted config file to be present within the container.
+CVE-2026-40226
+
+# Additional CVE raised to address remaining URL corruption issue - previous fixes did not fully address the issue. Pending fix release to <3.14.3 releases.
+CVE-2026-4786
