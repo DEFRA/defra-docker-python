@@ -23,17 +23,17 @@ CVE-2025-69720
 CVE-2026-4437
 CVE-2026-4438
 
-# OpenSSL 'wont-fix' entry per policy
-CVE-2026-2673
-
 # zlib - CPU consumption/DoS vulnerability. Fixed in zlib 1.3.2. Waiting for backport or fix in next Debian stable release.
 CVE-2026-27171
 
 # Fixed in python 3.15, waiting for fix to propagate to <3.15 releases.
 CVE-2026-2297
 CVE-2026-4519
+CVE-2026-3298
+CVE-2026-1502
 CVE-2026-4224
 CVE-2026-3644
+CVE-2026-4786
 
 # systemd polkit policy required for exploitation; polkit not installed in base image
 CVE-2026-4105
@@ -49,3 +49,39 @@ CVE-2026-27456
 
 # Buffer overflow in xz-utils — fixed in unstable; waiting for new Debian release with fix
 CVE-2026-34743
+
+# Hostname spoofing in util-linux. Waiting for fix in unstable - fix might only be possible in next Debian stable release.
+CVE-2026-3184
+
+# Out-of-bounds write in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+CVE-2026-5435
+
+# Buffer overflow in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+CVE-2026-5450
+
+# Buffer overread in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+CVE-2026-5928
+
+# DNS Verification Bypass in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+CVE-2026-6238
+
+# Privilege escalation in libcap2. Fixed in Debian testing - Waiting for backport to stable.
+CVE-2026-4878
+
+# Privilege escalation in systemd. Fixed in Debian testing - Waiting for backport to stable. Exploitation requires a malicious hardware device.
+CVE-2026-40225
+
+# Filesystem overwrite in sed. Fixed in Debian testing - Waiting for backport to stable.
+CVE-2026-5958
+
+# Escape-to-host vulnerability in systemd. Fixed in Debian testing - Waiting for backport to stable. Requires a specially crafted config file to be present within the container.
+CVE-2026-40226
+
+# Additional CVE raised to address remaining URL corruption issue - previous fixes did not fully address the issue. Pending fix release to <3.14.3 releases.
+CVE-2026-4786
+
+# Arbitrary code execution vulnerability in Python. Fix included in Python 3.14.5 release (see commit [48c3c7f](https://github.com/python/cpython/commit/48c3c7fb730e447ae1d8d2dec8f4a8b145687567))
+CVE-2026-6100
+
+# base64 decode failure in Python. Fixed in Python 3.13.13 - Pending fix release to 3.12 releases. Only exploitable when parsing untrusted base64 data with `base64.b64decode()`. Use `validate=True` to mitigate in the meantime.
+CVE-2026-3446
