@@ -44,3 +44,5 @@ ignore:
   - vulnerability: CVE-2026-5958
   - vulnerability: CVE-2026-40226
   - vulnerability: CVE-2026-4786
+  # Fix included in Python 3.14.5 release - Grype database still showing as vulnerable. Confirmed patch included in 3.14.5 (commit 48c3c7f) release, waiting for Grype DB update.
+  - vulnerability: CVE-2026-6100

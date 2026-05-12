@@ -82,3 +82,6 @@ CVE-2026-40226
 
 # Additional CVE raised to address remaining URL corruption issue - previous fixes did not fully address the issue. Pending fix release to <3.14.3 releases.
 CVE-2026-4786
+
+# Arbitrary code execution vulnerability in Python. Fix included in Python 3.14.5 release (see commit [48c3c7f](https://github.com/python/cpython/commit/48c3c7fb730e447ae1d8d2dec8f4a8b145687567))
+CVE-2026-6100
