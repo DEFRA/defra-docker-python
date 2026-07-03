@@ -20,8 +20,6 @@ CVE-2026-0861
 CVE-2025-6141
 CVE-2025-13837
 CVE-2025-69720
-CVE-2026-4437
-CVE-2026-4438
 
 # zlib - CPU consumption/DoS vulnerability. Fixed in zlib 1.3.2. Waiting for backport or fix in next Debian stable release.
 CVE-2026-27171
@@ -34,12 +32,6 @@ CVE-2026-1502
 CVE-2026-4224
 CVE-2026-3644
 CVE-2026-4786
-
-# systemd polkit policy required for exploitation; polkit not installed in base image
-CVE-2026-4105
-CVE-2026-29111
-
-CVE-2026-4046
 
 # Hidden File Injection in tar — mitigate by not extracting untrusted tar files.
 CVE-2026-5704
@@ -65,17 +57,68 @@ CVE-2026-5928
 # DNS Verification Bypass in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
 CVE-2026-6238
 
-# Privilege escalation in libcap2. Fixed in Debian testing - Waiting for backport to stable.
-CVE-2026-4878
+# Arbitrary file access in perl. Waiting for fix to be released by perl maintainers
+CVE-2026-42496
 
-# Privilege escalation in systemd. Fixed in Debian testing - Waiting for backport to stable. Exploitation requires a malicious hardware device.
-CVE-2026-40225
+# Buffer overflow in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
+CVE-2026-8376
 
-# Filesystem overwrite in sed. Fixed in Debian testing - Waiting for backport to stable.
-CVE-2026-5958
+# Denial of Service in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
+CVE-2025-15649
 
-# Escape-to-host vulnerability in systemd. Fixed in Debian testing - Waiting for backport to stable. Requires a specially crafted config file to be present within the container.
-CVE-2026-40226
+# Out-of-bounds read in perl. Waiting for fix to be released by perl maintainers
+CVE-2026-12087
+
+# CPU consumption / DoS in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
+CVE-2026-48959
+
+# DoS in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable. Vulnerability only exists in bundled CLI which can't be executed without shell access.
+CVE-2026-48961
+
+# Validation bypass in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
+CVE-2026-7010
+
+# Arbitrary file access in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
+CVE-2026-42497
+
+# Arbitrary code execution in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
+CVE-2026-48962
+
+# Arbitrary code execution in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
+CVE-2026-9538
+
+# Buffer overflow in gzip. Waiting for fix to be released by gzip maintainers - waiting for fix to be released in Debian stable
+CVE-2026-41992
+
+# Symlink traversal in acl. Fix released by acl maintainers - waiting for fix to be released in Debian stable
+CVE-2026-54370
+
+# Symlink traversal / privilege escalation in libacl1. Fix released by acl maintainers - waiting for fix to be released in Debian stable
+CVE-2026-54369
+
+# Symlink traversal in attr. Fix released by attr maintainers - waiting for fix to be released in Debian stable
+CVE-2026-54371
+
+# Unallocated memory read in util-linux. Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement - Fix might only be possible in next Debian stable release.
+CVE-2026-13595
+
+# Denial of Service in bzip2. Waiting for fix to be released by bzip2 maintainers - waiting for fix to be released in Debian stable
+CVE-2026-42250
+
+# Arbitrary file overwrite in gzip. Fix available upstream (commit 4e6f8b24) - waiting for fix to be released in Debian stable
+CVE-2026-41991
+
+# Timing discrepancy / Plaintext password recovery in linux-pam (pam). Only exploitable when pam_userdb is configured with crypt=none - waiting for upstream fix
+CVE-2026-54411
+
+# Memory corruption / Buffer overflow in sqlite3. Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable
+CVE-2026-11822
+
+# Heap-based buffer overflow in sqlite3. Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable
+CVE-2026-11824
+
+# GPG Validation in apt. Waiting for fix to be released by apt maintainers - waiting for fix to be released in Debian stable
+CVE-2011-3374
 
 # Additional CVE raised to address remaining URL corruption issue - previous fixes did not fully address the issue. Pending fix release to <3.14.3 releases.
 CVE-2026-4786
@@ -85,3 +128,33 @@ CVE-2026-6100
 
 # base64 decode failure in Python. Fixed in Python 3.13.13 - Pending fix release to 3.12 releases. Only exploitable when parsing untrusted base64 data with `base64.b64decode()`. Use `validate=True` to mitigate in the meantime.
 CVE-2026-3446
+
+# Arbitrary file access in Python. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases. Only exploitable if uncompressing untrusted tar files with tarfile modules.
+CVE-2026-11940
+
+# Exponential archive parsing in Python. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases. Only exploitable if opening tar archives using streaming mode.
+CVE-2026-11972
+
+# Installation path traversal in Python. Doesn't impact this image - issue only impacts the Windows installer. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases.
+CVE-2026-12003
+
+# CRLF injection in Python. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases.
+CVE-2026-0864
+
+# HTML/Script injection in http.cookies.Morsel.js_output(). Fixed in 3.13.14, 3.14.5rc1, 3.15.0b1 - no 3.12 backport available yet.
+CVE-2026-6019
+
+# SSRF in ftplib.ftpcp() via PASV bypass. Patch committed to 3.12 branch (commit c887044) - awaiting 3.12.14 release.
+CVE-2026-8328
+
+# Path traversal via tarfile.data_filter bypass. Patch committed to 3.12 branch (commit 0d28f5e) - awaiting 3.12.14 release.
+CVE-2026-7774
+
+# CPU consumption / DoS in unicodedata.normalize(). Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport PR open (cpython#150843), pending merge and release.
+CVE-2026-3276
+
+# Stack-based buffer overflow in bz2.BZ2Decompressor reuse after error. Fixed in 3.13.14, 3.14.6, 3.15.0b3 - 3.12 backport PR open (cpython#151057), pending merge and release.
+CVE-2026-9669
+
+# Hash flooding / insufficient entropy in xml.parsers.expat and xml.etree.ElementTree. Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport blocked pending cpython#151401.
+CVE-2026-7210

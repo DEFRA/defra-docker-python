@@ -1,48 +1,144 @@
 ignore:
+  # ==========================
+  # OS / Base Image Issues
+  # ==========================
+
+  # util-linux fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
   - vulnerability: CVE-2025-14104
-  - vulnerability: CVE-2025-12084
-  # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit 9c9dda6) release, waiting for Grype DB update.
-  - vulnerability: CVE-2026-0865
-  - vulnerability: CVE-2025-13836
-  # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit 14b1fdb) release, waiting for Grype DB update.
-  - vulnerability: CVE-2025-15282
-  - vulnerability: CVE-2026-0672
+
+  # ncurses fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
+  - vulnerability: CVE-2025-6141
+  - vulnerability: CVE-2025-69720
+
+  # zlib - CPU consumption/DoS vulnerability. Fixed in zlib 1.3.2. Waiting for backport or fix in next Debian stable release.
+  - vulnerability: CVE-2026-27171
+
+  # Hidden File Injection in tar — mitigate by not extracting untrusted tar files.
+  - vulnerability: CVE-2026-5704
+
+  # TOCTOU / Unauthorized file read in util-linux. Not exploitable in this container image; requires /etc/fstab with user,loop options.
+  - vulnerability: CVE-2026-27456
+
+  # Buffer overflow in xz-utils — fixed in unstable; waiting for new Debian release with fix.
+  - vulnerability: CVE-2026-34743
+
+  # Hostname spoofing in util-linux. Waiting for fix in unstable - fix might only be possible in next Debian stable release.
+  - vulnerability: CVE-2026-3184
+
+  # Out-of-bounds write in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+  - vulnerability: CVE-2026-5435
+
+  # Buffer overflow in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+  - vulnerability: CVE-2026-5450
+
+  # Buffer overread in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+  - vulnerability: CVE-2026-5928
+
+  # DNS Verification Bypass in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
+  - vulnerability: CVE-2026-6238
+
+  # perl vulnerabilities - waiting for fixes to be released by perl maintainers or in Debian stable.
+  - vulnerability: CVE-2026-42496
+  - vulnerability: CVE-2026-8376
+  - vulnerability: CVE-2025-15649
+  - vulnerability: CVE-2026-12087
+  - vulnerability: CVE-2026-48959
+  - vulnerability: CVE-2026-48961
+  - vulnerability: CVE-2026-7010
+  - vulnerability: CVE-2026-42497
+  - vulnerability: CVE-2026-48962
+  - vulnerability: CVE-2026-9538
+
+  # Buffer overflow / arbitrary file overwrite in gzip. Waiting for fix to be released in Debian stable.
+  - vulnerability: CVE-2026-41992
+  - vulnerability: CVE-2026-41991
+
+  # Symlink traversal in acl. Fix released by acl maintainers - waiting for fix to be released in Debian stable.
+  - vulnerability: CVE-2026-54370
+  - vulnerability: CVE-2026-54369
+
+  # Symlink traversal in attr. Fix released by attr maintainers - waiting for fix to be released in Debian stable.
+  - vulnerability: CVE-2026-54371
+
+  # Unallocated memory read in util-linux. Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement.
+  - vulnerability: CVE-2026-13595
+
+  # Denial of Service in bzip2. Waiting for fix to be released in Debian stable.
+  - vulnerability: CVE-2026-42250
+
+  # Timing discrepancy / Plaintext password recovery in linux-pam. Only exploitable when pam_userdb is configured with crypt=none.
+  - vulnerability: CVE-2026-54411
+
+  # Memory corruption / Buffer overflow in sqlite3. Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable.
+  - vulnerability: CVE-2026-11822
+  - vulnerability: CVE-2026-11824
+
+  # GPG Validation in apt. Waiting for fix to be released in Debian stable.
+  - vulnerability: CVE-2011-3374
+
+  # ==========================
+  # Python Issues
+  # ==========================
+
+  # # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit 9c9dda6) release, waiting for Grype DB update.
+  # - vulnerability: CVE-2025-12084
+
+  # # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit 14b1fdb) release, waiting for Grype DB update.
+  # - vulnerability: CVE-2025-13836
+
+  # Fixed in Python 3.15, waiting for fix to propagate to <3.15.0 releases.
   - vulnerability: CVE-2025-15366
   - vulnerability: CVE-2025-15367
-  - vulnerability: CVE-2025-11468
   - vulnerability: CVE-2025-12781
-  - vulnerability: CVE-2026-1299
-  - vulnerability: CVE-2026-4437
-  - vulnerability: CVE-2026-4438
-  - vulnerability: CVE-2025-6141
-  - vulnerability: CVE-2025-6075
+
+  # Env Var Pattern Processing. Fixed in Python 3.13.10 - pending fix propagation to 3.12 releases.
+  # - vulnerability: CVE-2025-6075
+
   # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit c8a5f34) release, waiting for Grype DB update.
   - vulnerability: CVE-2025-13837
-  - vulnerability: CVE-2025-69720
-  - vulnerability: CVE-2026-27171
-  - vulnerability: CVE-2026-4519
+
+  # Fixed in Python 3.15, waiting for fix to propagate to <3.15 releases.
+  - vulnerability: CVE-2026-2297
   - vulnerability: CVE-2026-3298
   - vulnerability: CVE-2026-1502
   - vulnerability: CVE-2026-4224
   - vulnerability: CVE-2026-3644
-  - vulnerability: CVE-2026-29111
-  - vulnerability: CVE-2026-2297
-  # Exploitation depends on a custom polkit policy; polkit not present in base image
-  - vulnerability: CVE-2026-4105
-  - vulnerability: CVE-2026-4046
-  - vulnerability: CVE-2026-27456
-  - vulnerability: CVE-2026-5704
-  - vulnerability: CVE-2026-34743
-  - vulnerability: CVE-2026-3184
-  - vulnerability: CVE-2026-5435
-  - vulnerability: CVE-2026-5450
-  - vulnerability: CVE-2026-5928
-  - vulnerability: CVE-2026-6238
-  - vulnerability: CVE-2026-4878
-  - vulnerability: CVE-2026-40225
-  - vulnerability: CVE-2026-5958
-  - vulnerability: CVE-2026-40226
+
+  # Additional CVE raised to address remaining URL corruption issue - pending fix release to <3.14.5 releases.
   - vulnerability: CVE-2026-4786
+
   # Fix included in Python 3.14.5 release - Grype database still showing as vulnerable. Confirmed patch included in 3.14.5 (commit 48c3c7f) release, waiting for Grype DB update.
   - vulnerability: CVE-2026-6100
+
+  # base64 decode failure. Fixed in Python 3.13.13 - pending fix release to 3.12 releases.
   - vulnerability: CVE-2026-3446
+
+  # Arbitrary file access in Python. Fixed in upstream branches with the exception of 3.12 - pending inclusion of fix in 3.12, 3.13 and 3.14 releases.
+  - vulnerability: CVE-2026-11940
+
+  # Exponential archive parsing in Python. Fixed in upstream branches with the exception of 3.12 - pending inclusion of fix in 3.12, 3.13 and 3.14 releases.
+  - vulnerability: CVE-2026-11972
+
+  # Installation path traversal. Doesn't impact this image - issue only impacts the Windows installer.
+  - vulnerability: CVE-2026-12003
+
+  # CRLF injection in Python. Fixed in upstream branches with the exception of 3.12 - pending inclusion of fix in 3.12, 3.13 and 3.14 releases.
+  - vulnerability: CVE-2026-0864
+
+  # HTML/Script injection in http.cookies.Morsel.js_output(). Fixed in 3.13.14, 3.14.5rc1, 3.15.0b1 - no 3.12 backport available yet.
+  - vulnerability: CVE-2026-6019
+
+  # SSRF in ftplib.ftpcp() via PASV bypass. Patch committed to 3.12 branch (commit c887044) - awaiting 3.12.14 release.
+  - vulnerability: CVE-2026-8328
+
+  # Path traversal via tarfile.data_filter bypass. Patch committed to 3.12 branch (commit 0d28f5e) - awaiting 3.12.14 release.
+  - vulnerability: CVE-2026-7774
+
+  # CPU consumption / DoS in unicodedata.normalize(). Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport PR open (cpython#150843), pending merge and release.
+  - vulnerability: CVE-2026-3276
+
+  # Stack-based buffer overflow in bz2.BZ2Decompressor reuse after error. Fixed in 3.13.14, 3.14.6, 3.15.0b3 - 3.12 backport PR open (cpython#151057), pending merge and release.
+  - vulnerability: CVE-2026-9669
+
+  # Hash flooding / insufficient entropy in xml.parsers.expat and xml.etree.ElementTree. Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport blocked pending cpython#151401.
+  - vulnerability: CVE-2026-7210
