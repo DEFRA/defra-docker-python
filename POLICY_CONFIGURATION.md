@@ -44,8 +44,6 @@ The following OS / base image issues have been added to the policies exclusion l
 The following Python issues have been added to the policies exclusion list:
 | CVE ID | Type | Component | Date Added | Affected Versions | Reason |
 |--------|------|-----------|------|-------------------|--------|
-| CVE-2025-12084 | XML DoS | python | 22/12/2025 | `<3.13` | Fix released in `3.12.13` — backported patch included in the `v3.12.13` release (see [v3.12.13](https://github.com/python/cpython/commits/v3.12.13) and commit [9c9dda6](https://github.com/python/cpython/commit/9c9dda6625a2a90d2a06c657eee021d6be19842d)). Grype DB still shows this as vulnerable; waiting for DB update. |
-| CVE-2025-13836 | HTTP Response Handling (http.client) | python | 22/12/2025 | `<3.13` | Fix released in `3.12.13` — backported patch included in the `v3.12.13` release (see [v3.12.13](https://github.com/python/cpython/commits/v3.12.13) and commit [14b1fdb](https://github.com/python/cpython/commit/14b1fdb0a94b96f86fc7b86671ea9582b8676628)). Grype DB still shows this as vulnerable; waiting for DB update. |
 | CVE-2026-0865 | HTTP Header Injection | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
 | CVE-2025-15282 | CRLF Injection | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
 | CVE-2026-0672 | Cookie Header Injection | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
@@ -54,7 +52,6 @@ The following Python issues have been added to the policies exclusion list:
 | CVE-2025-11468 | Email Header Folding Injection | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
 | CVE-2025-12781 | Base64 Decoding Behavior / Data Integrity | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
 | CVE-2026-1299 | Email Header Injection (BytesGenerator) | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
-| CVE-2025-6075 | Env Var Pattern Processing | python | 18/02/2026 | `<3.13` | Fixed in `3.13.10` - Limited exposure as only exploitable when parsing untrusted env var patterns with `os.path.expandvars()` Pending fix propagation to `3.12` releases. |
 | CVE-2025-13837 | Plist parsing | python | 18/02/2026 | `<3.13` | Fixed in `3.13.10`; backported to `3.12.13` (see [v3.12.13](https://github.com/python/cpython/commits/v3.12.13) and commit [c8a5f34](https://github.com/python/cpython/commit/c8a5f3435c342964e0a432cc9fb448b7dbecd1ba)). Grype DB still shows this as vulnerable; waiting for DB update. |
 | CVE-2026-2297 | Legacy .pyc validation hook bypass | python | 04/03/2026 | `<3.15` | Legacy `*.pyc` validation hook bypass - Pending fix propagation to `<3.15` releases. |
 | CVE-2026-3644 | Cookie Input Validation Bypass | python | 26/03/2026 | `<3.14` | Pending fix release to `<3.14.3` releases. |

@@ -11,14 +11,8 @@ CVE-2025-11468
 CVE-2025-12781
 CVE-2026-1299
 
-# glibc marked as won't fix - Waiting for backport or fix in next Debian stable release, but significant system stability risks with backporting / upgrading glibc.
-CVE-2025-15281
-CVE-2026-0915
-CVE-2026-0861
-
 # ncurses fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
 CVE-2025-6141
-CVE-2025-13837
 CVE-2025-69720
 
 # zlib - CPU consumption/DoS vulnerability. Fixed in zlib 1.3.2. Waiting for backport or fix in next Debian stable release.
@@ -31,7 +25,6 @@ CVE-2026-3298
 CVE-2026-1502
 CVE-2026-4224
 CVE-2026-3644
-CVE-2026-4786
 
 # Hidden File Injection in tar — mitigate by not extracting untrusted tar files.
 CVE-2026-5704

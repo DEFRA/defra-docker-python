@@ -20,9 +20,17 @@ jobs:
           cat ./image-matrix.json >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
+  check-policy-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Check vulnerability policy sync
+        run: python3 scripts/check_policy_sync.py
+
   build-images:
     runs-on: ubuntu-latest
-    needs:  get-matrix-values
+    needs: [get-matrix-values, check-policy-sync]
     strategy:
       matrix:
         target: ["development", "production"]
