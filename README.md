@@ -9,8 +9,8 @@ The following table lists the versions of python available, and the parent Pytho
 
 | Python version  | Parent image        |
 |-----------------|---------------------|
-| 3.14.5         | 3.14.5-slim-trixie  |
-| 3.13.13          | 3.13.13-slim-trixie  |
+| 3.14.6         | 3.14.6-slim-trixie  |
+| 3.13.14          | 3.13.14-slim-trixie  |
 | 3.12.13         | 3.12.13-slim-trixie |
 
 Two parent images are created for each version:

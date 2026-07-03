@@ -1,11 +1,11 @@
 [
     {
-        "pythonVersion": "3.14.5",
+        "pythonVersion": "3.14.6",
         "debianVersion": "slim-trixie",
         "tags": ["latest-3.14", "latest"]
     },
     {
-        "pythonVersion": "3.13.13",
+        "pythonVersion": "3.13.14",
         "debianVersion": "slim-trixie",
         "tags": ["latest-3.13"]
     },
