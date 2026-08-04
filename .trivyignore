@@ -50,6 +50,7 @@ CVE-2026-48962
 CVE-2026-9538
 CVE-2026-13221
 CVE-2026-57432
+CVE-2026-57433
 
 # Buffer overflow / arbitrary file overwrite in gzip. Waiting for fix to be released in Debian stable.
 CVE-2026-41992

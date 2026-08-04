@@ -51,6 +51,7 @@ ignore:
   - vulnerability: CVE-2026-9538
   - vulnerability: CVE-2026-13221
   - vulnerability: CVE-2026-57432
+  - vulnerability: CVE-2026-57433
 
   # Buffer overflow / arbitrary file overwrite in gzip. Waiting for fix to be released in Debian stable.
   - vulnerability: CVE-2026-41992
