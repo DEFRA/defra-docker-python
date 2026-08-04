@@ -27,6 +27,8 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2026-42497 | Arbitrary file access | perl | 03/07/2026 | Fix released by perl maintainers - waiting for fix to be released in Debian stable |
 | CVE-2026-48962 | Arbitrary code execution | perl | 03/07/2026 | Fix released by perl maintainers - waiting for fix to be released in Debian stable |
 | CVE-2026-9538 | Arbitrary code execution | perl | 03/07/2026 | Fix released by perl maintainers - waiting for fix to be released in Debian stable |
+| CVE-2026-13221 | Regular expression trie overflow | perl | 04/08/2026 | Affects perl versions through 5.43.9; exploitation requires compiling a regex with more than 65,535 fixed-string alternation branches. Not exploitable in this image as shipped (no Perl-executed service, and trigger pattern is highly unlikely). Waiting for fix from Debian stable release. |
+| CVE-2026-57432 | Integer overflow | perl | 04/08/2026 | Affects perl versions through 5.43.9; exploitation requires a crafted input to trigger an integer overflow in the regex engine. Not exploitable in this image as shipped (no Perl-executed service, and trigger pattern is highly unlikely). Waiting for fix from Debian stable release. |
 | CVE-2026-41992 | Buffer overflow | gzip | 03/07/2026 | Waiting for fix to be released by gzip maintainers - waiting for fix to be released in Debian stable |
 | CVE-2026-54370 | Symlink traversal | acl | 03/07/2026 | Fix released by acl maintainers - waiting for fix to be released in Debian stable |
 | CVE-2026-54369 | Symlink traversal / privilege escalation | acl | 03/07/2026 | Fix released by acl maintainers - waiting for fix to be released in Debian stable |
@@ -39,6 +41,11 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2026-11822 | Memory corruption / Buffer overflow | sqlite3 | 03/07/2026 | Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable |
 | CVE-2026-11824 | Heap-based buffer overflow | sqlite3 | 03/07/2026 | Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable |
 | CVE-2011-3374 | GPG Validation | apt | 03/07/2026 | Waiting for fix to be release by apt maintainers - waiting for fix to be released in Debian stable |
+| CVE-2026-53615 | Integer overflow | util-linux | 04/08/2026 | Waiting for fix to be released by util-linux maintainers - waiting for fix to be released in Debian stable |
+| CVE-2026-50812 | Null pointer reference / Denial of Service | libsqlite3 | 04/08/2026 | Fixed in sqlite3 3.53.2-1 - waiting for fix to be released in Debian stable |
+| CVE-2026-50813 | Information disclosure | libsqlite3 | 04/08/2026 | Fixed in sqlite3 3.53.2-1 - waiting for fix to be released in Debian stable - can only be exploited via local access |
+| CVE-2026-18477 | Privilege escalation | tar | 04/08/2026 | Waiting for fix to be released by tar maintainers - only exploitable with local access and with a crafted tar file. |
+| CVE-2026-18508 | symlink traversal / out-of-bounds write | tar | 04/08/2026 | Waiting for fix to be released by tar maintainers |
 
 ### Python issues
 The following Python issues have been added to the policies exclusion list:
@@ -72,3 +79,11 @@ The following Python issues have been added to the policies exclusion list:
 | CVE-2026-3276 | CPU Consumption / DoS (`unicodedata.normalize()`) | python | 03/07/2026 | `<3.13.14` | Fixed in `3.13.14`, `3.14.6`, `3.15.0b2`. `3.12` backport PR open ([cpython#150843](https://github.com/python/cpython/pull/150843)) — pending merge and release. |
 | CVE-2026-9669 | Stack-based Buffer Overflow (`bz2.BZ2Decompressor` reuse after error) | python | 03/07/2026 | `<3.13.14` | Fixed in `3.13.14`, `3.14.6`, `3.15.0b3`. `3.12` backport PR open ([cpython#151057](https://github.com/python/cpython/pull/151057)) — pending merge and release. |
 | CVE-2026-7210 | Hash Flooding / Insufficient Entropy (`xml.parsers.expat`, `xml.etree.ElementTree`) | python | 03/07/2026 | `<3.13.14` | Fixed in `3.13.14`, `3.14.6`, `3.15.0b2`. `3.12` backport blocked pending [cpython#151401](https://github.com/python/cpython/pull/151401) — awaiting fix in `3.12`. |
+
+### pip vendored dependency issues
+The following issues originate from copies of dependencies bundled inside pip's own `pip/_vendor` directory rather than the top-level installed packages (which are already pinned to fixed versions in the [Dockerfile](Dockerfile)). They cannot be resolved with `pip install --upgrade` and require a new pip release that updates its vendored copies.
+| CVE ID | Type | Component | Date Added | Affected Versions | Reason |
+|--------|------|-----------|------|-------------------|--------|
+| GHSA-6v7p-g79w-8964 | Out-of-bounds read / crash on Unpacker reuse | pip (`pip/_vendor/msgpack`) | 04/08/2026 | `pip<=26.2` | msgpack 1.1.2 is bundled inside pip's own vendored dependencies (pip 26.2 is the latest release) and used only internally by pip's HTTP cache. The top-level `msgpack` package is already pinned to the fixed `1.2.1` release. Waiting for pip to update its vendored copy. |
+| CVE-2025-47273 | Path Traversal Vulnerability in setuptools PackageIndex | pip (`pip/_vendor/vendor.txt`) | 04/08/2026 | `pip<=26.2` | setuptools 70.3.0 is referenced inside pip's own vendored dependency manifest (pip 26.2 is the latest release). The top-level `setuptools` package is already pinned to the fixed `83.0.0` release. Waiting for pip to update its vendored reference. |
+| CVE-2026-59890 | MANIFEST.in exclusion bypass in sdist via Unicode normalization collision (NFC/NFD) | pip (`pip/_vendor/vendor.txt`) | 04/08/2026 | `pip<=26.2` | setuptools 70.3.0 is referenced inside pip's own vendored dependency manifest (pip 26.2 is the latest release). The top-level `setuptools` package is already pinned to the fixed `83.0.0` release. Waiting for pip to update its vendored reference. |

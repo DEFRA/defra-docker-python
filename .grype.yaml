@@ -16,6 +16,10 @@ ignore:
   # Hidden File Injection in tar — mitigate by not extracting untrusted tar files.
   - vulnerability: CVE-2026-5704
 
+  # Privilege escalation and symlink traversal / out-of-bounds write in tar. Waiting for fix to be released by tar maintainers.
+  - vulnerability: CVE-2026-18477
+  - vulnerability: CVE-2026-18508
+
   # TOCTOU / Unauthorized file read in util-linux. Not exploitable in this container image; requires /etc/fstab with user,loop options.
   - vulnerability: CVE-2026-27456
 
@@ -48,6 +52,8 @@ ignore:
   - vulnerability: CVE-2026-42497
   - vulnerability: CVE-2026-48962
   - vulnerability: CVE-2026-9538
+  - vulnerability: CVE-2026-13221
+  - vulnerability: CVE-2026-57432
 
   # Buffer overflow / arbitrary file overwrite in gzip. Waiting for fix to be released in Debian stable.
   - vulnerability: CVE-2026-41992
@@ -73,8 +79,15 @@ ignore:
   - vulnerability: CVE-2026-11822
   - vulnerability: CVE-2026-11824
 
+  # Null pointer reference / Denial of Service, and Information disclosure in libsqlite3. Fixed in sqlite3 3.53.2-1 - waiting for fix to be released in Debian stable.
+  - vulnerability: CVE-2026-50812
+  - vulnerability: CVE-2026-50813
+
   # GPG Validation in apt. Waiting for fix to be released in Debian stable.
   - vulnerability: CVE-2011-3374
+
+  # Integer overflow in util-linux. Waiting for fix to be released in Debian stable.
+  - vulnerability: CVE-2026-53615
 
   # ==========================
   # Python Issues
@@ -142,3 +155,14 @@ ignore:
 
   # Hash flooding / insufficient entropy in xml.parsers.expat and xml.etree.ElementTree. Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport blocked pending cpython#151401.
   - vulnerability: CVE-2026-7210
+
+  # ==========================
+  # pip vendored dependency issues
+  # ==========================
+
+  # Outdated msgpack bundled inside pip's own pip/_vendor/msgpack (pip 26.2, the latest release). Not the top-level msgpack package, which is already pinned to the fixed 1.2.1 release in the Dockerfile. Only used internally by pip's HTTP cache; waiting for pip to update its vendored copy.
+  - vulnerability: GHSA-6v7p-g79w-8964
+
+  # Outdated setuptools referenced in pip's own pip/_vendor/vendor.txt (pip 26.2, the latest release). Not the top-level setuptools package, which is already pinned to the fixed 83.0.0 release in the Dockerfile. Waiting for pip to update its vendored reference.
+  - vulnerability: CVE-2025-47273
+  - vulnerability: CVE-2026-59890
