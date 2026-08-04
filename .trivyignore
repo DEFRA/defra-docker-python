@@ -51,6 +51,7 @@ CVE-2026-9538
 CVE-2026-13221
 CVE-2026-57432
 CVE-2026-57433
+CVE-2026-7017
 
 # Buffer overflow / arbitrary file overwrite in gzip. Waiting for fix to be released in Debian stable.
 CVE-2026-41992
@@ -146,6 +147,12 @@ CVE-2026-9669
 
 # Hash flooding / insufficient entropy in xml.parsers.expat and xml.etree.ElementTree. Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport blocked pending cpython#151401.
 CVE-2026-7210
+
+# HTML parsing / Denial of Service in html.parser. Fixed in 3.15 - awaiting fix propagation to <3.15 releases. Only exploitable when parsing untrusted HTML content with html.parser.
+CVE-2026-15308
+
+# Tar extraction / permission bypass in tarfile. Fixed in all upstream branches - awaiting release of 3.12, 3.13 and 3.14 releases. Only exploitable when extracting untrusted tar files with tarfile modules.
+CVE-2026-4360
 
 # ==========================
 # pip vendored dependency issues
