@@ -23,9 +23,6 @@ ignore:
   # TOCTOU / Unauthorized file read in util-linux. Not exploitable in this container image; requires /etc/fstab with user,loop options.
   - vulnerability: CVE-2026-27456
 
-  # Buffer overflow in xz-utils — fixed in unstable; waiting for new Debian release with fix.
-  - vulnerability: CVE-2026-34743
-
   # Hostname spoofing in util-linux. Waiting for fix in unstable - fix might only be possible in next Debian stable release.
   - vulnerability: CVE-2026-3184
 

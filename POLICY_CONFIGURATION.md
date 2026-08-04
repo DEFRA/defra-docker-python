@@ -11,7 +11,6 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2025-69720 | Buffer overflow | ncurses (libncursesw6, libtinfo6, ncurses-base, ncurses-bin) | 26/03/2026 | Patch for ncurses release - waiting for Debian to release updated package - fix might only be possible in next Debian stable release. |
 | CVE-2026-5704 | Hidden File Injection | tar | 07/04/2026 | Can be mitigated by not extracting untrusted tar files with `tar` - only a risk if users are extracting untrusted tar files within the container. |
 | CVE-2026-27456 | TOCTOU / Unauthorized file read | util-linux | 07/04/2026 | Not exploitable in this container image. Exploitation requires an `/etc/fstab` entry with `user,loop` options |
-| CVE-2026-34743 | Buffer overflow | xz-utils | | 07/04/2026 | Fixed in unstable - waiting for new Debian release with fix |
 | CVE-2026-3184 | Hostname spoofing | util-linux | 12/05/2026 | Waiting for fix in unstable - fix might only be possible in next Debian stable release. |
 | CVE-2026-5435 | Out-of-bounds write | libc (libc6, libc-bin) | 12/05/2026 | Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. Issue only exists in deprecated C functions which are unlikely to be used in any Python dependencies. |
 | CVE-2026-5450 | Buffer overflow | libc (libc6, libc-bin) | 12/05/2026 | Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release. |
@@ -33,7 +32,6 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2026-54370 | Symlink traversal | acl | 03/07/2026 | Fix released by acl maintainers - waiting for fix to be released in Debian stable |
 | CVE-2026-54369 | Symlink traversal / privilege escalation | acl | 03/07/2026 | Fix released by acl maintainers - waiting for fix to be released in Debian stable |
 | CVE-2026-54371 | Symlink traversal | attr | 03/07/2026 | Fix released by attr maintainers - waiting for fix to be released in Debian stable |
-| CVE-2026-13595 | Unallocated memory read | util-linux | 03/07/2026 | Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement - Fix might only be possible in next Debian stable release. |
 | CVE-2026-13595 | Unallocated memory read | util-linux | 03/07/2026 | Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement - Fix might only be possible in next Debian stable release. |
 | CVE-2026-42250 | Denial of Service | bzip2 | 03/07/2026 | Waiting for fix to be released by bzip2 maintainers - waiting for fix to be released in Debian stable |
 | CVE-2026-41991 | Arbitrary file overwrite | gzip | 03/07/2026 | Fix available upstream (commit 4e6f8b24) - waiting for fix to be released in Debian stable |
@@ -82,6 +80,7 @@ The following Python issues have been added to the policies exclusion list:
 
 ### pip vendored dependency issues
 The following issues originate from copies of dependencies bundled inside pip's own `pip/_vendor` directory rather than the top-level installed packages (which are already pinned to fixed versions in the [Dockerfile](Dockerfile)). They cannot be resolved with `pip install --upgrade` and require a new pip release that updates its vendored copies.
+
 | CVE ID | Type | Component | Date Added | Affected Versions | Reason |
 |--------|------|-----------|------|-------------------|--------|
 | GHSA-6v7p-g79w-8964 | Out-of-bounds read / crash on Unpacker reuse | pip (`pip/_vendor/msgpack`) | 04/08/2026 | `pip<=26.2` | msgpack 1.1.2 is bundled inside pip's own vendored dependencies (pip 26.2 is the latest release) and used only internally by pip's HTTP cache. The top-level `msgpack` package is already pinned to the fixed `1.2.1` release. Waiting for pip to update its vendored copy. |
