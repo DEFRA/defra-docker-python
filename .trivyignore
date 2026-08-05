@@ -1,15 +1,9 @@
+# ==========================
+# OS / Base Image Issues
+# ==========================
+
 # util-linux fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
 CVE-2025-14104
-
-# Fixed in python 3.15, waiting for fix to propagate to <3.15.0 releases.
-CVE-2026-0865
-CVE-2025-15282
-CVE-2026-0672
-CVE-2025-15366
-CVE-2025-15367
-CVE-2025-11468
-CVE-2025-12781
-CVE-2026-1299
 
 # ncurses fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
 CVE-2025-6141
@@ -18,22 +12,15 @@ CVE-2025-69720
 # zlib - CPU consumption/DoS vulnerability. Fixed in zlib 1.3.2. Waiting for backport or fix in next Debian stable release.
 CVE-2026-27171
 
-# Fixed in python 3.15, waiting for fix to propagate to <3.15 releases.
-CVE-2026-2297
-CVE-2026-4519
-CVE-2026-3298
-CVE-2026-1502
-CVE-2026-4224
-CVE-2026-3644
-
 # Hidden File Injection in tar — mitigate by not extracting untrusted tar files.
 CVE-2026-5704
 
+# Privilege escalation and symlink traversal / out-of-bounds write in tar. Waiting for fix to be released by tar maintainers.
+CVE-2026-18477
+CVE-2026-18508
+
 # TOCTOU / Unauthorized file read in util-linux. Not exploitable in this container image; requires /etc/fstab with user,loop options.
 CVE-2026-27456
-
-# Buffer overflow in xz-utils — fixed in unstable; waiting for new Debian release with fix
-CVE-2026-34743
 
 # Hostname spoofing in util-linux. Waiting for fix in unstable - fix might only be possible in next Debian stable release.
 CVE-2026-3184
@@ -50,73 +37,82 @@ CVE-2026-5928
 # DNS Verification Bypass in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
 CVE-2026-6238
 
-# Arbitrary file access in perl. Waiting for fix to be released by perl maintainers
+# perl vulnerabilities - waiting for fixes to be released by perl maintainers or in Debian stable.
 CVE-2026-42496
-
-# Buffer overflow in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
 CVE-2026-8376
-
-# Denial of Service in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
 CVE-2025-15649
-
-# Out-of-bounds read in perl. Waiting for fix to be released by perl maintainers
 CVE-2026-12087
-
-# CPU consumption / DoS in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
 CVE-2026-48959
-
-# DoS in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable. Vulnerability only exists in bundled CLI which can't be executed without shell access.
 CVE-2026-48961
-
-# Validation bypass in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
 CVE-2026-7010
-
-# Arbitrary file access in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
 CVE-2026-42497
-
-# Arbitrary code execution in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
 CVE-2026-48962
-
-# Arbitrary code execution in perl. Fix released by perl maintainers - waiting for fix to be released in Debian stable
 CVE-2026-9538
+CVE-2026-13221
+CVE-2026-57432
+CVE-2026-57433
+CVE-2026-7017
 
-# Buffer overflow in gzip. Waiting for fix to be released by gzip maintainers - waiting for fix to be released in Debian stable
+# Buffer overflow / arbitrary file overwrite in gzip. Waiting for fix to be released in Debian stable.
 CVE-2026-41992
-
-# Symlink traversal in acl. Fix released by acl maintainers - waiting for fix to be released in Debian stable
-CVE-2026-54370
-
-# Symlink traversal / privilege escalation in libacl1. Fix released by acl maintainers - waiting for fix to be released in Debian stable
-CVE-2026-54369
-
-# Symlink traversal in attr. Fix released by attr maintainers - waiting for fix to be released in Debian stable
-CVE-2026-54371
-
-# Unallocated memory read in util-linux. Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement - Fix might only be possible in next Debian stable release.
-CVE-2026-13595
-
-# Denial of Service in bzip2. Waiting for fix to be released by bzip2 maintainers - waiting for fix to be released in Debian stable
-CVE-2026-42250
-
-# Arbitrary file overwrite in gzip. Fix available upstream (commit 4e6f8b24) - waiting for fix to be released in Debian stable
 CVE-2026-41991
 
-# Timing discrepancy / Plaintext password recovery in linux-pam (pam). Only exploitable when pam_userdb is configured with crypt=none - waiting for upstream fix
+# Symlink traversal in acl. Fix released by acl maintainers - waiting for fix to be released in Debian stable.
+CVE-2026-54370
+CVE-2026-54369
+
+# Symlink traversal in attr. Fix released by attr maintainers - waiting for fix to be released in Debian stable.
+CVE-2026-54371
+
+# Unallocated memory read in util-linux. Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement.
+CVE-2026-13595
+
+# Denial of Service in bzip2. Waiting for fix to be released in Debian stable.
+CVE-2026-42250
+
+# Timing discrepancy / Plaintext password recovery in linux-pam. Only exploitable when pam_userdb is configured with crypt=none.
 CVE-2026-54411
 
-# Memory corruption / Buffer overflow in sqlite3. Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable
+# Memory corruption / Buffer overflow in sqlite3. Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable.
 CVE-2026-11822
-
-# Heap-based buffer overflow in sqlite3. Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable
 CVE-2026-11824
 
-# GPG Validation in apt. Waiting for fix to be released by apt maintainers - waiting for fix to be released in Debian stable
+# Null pointer reference / Denial of Service, and Information disclosure in libsqlite3. Fixed in sqlite3 3.53.2-1 - waiting for fix to be released in Debian stable.
+CVE-2026-50812
+CVE-2026-50813
+
+# GPG Validation in apt. Waiting for fix to be released in Debian stable.
 CVE-2011-3374
 
-# Additional CVE raised to address remaining URL corruption issue - previous fixes did not fully address the issue. Pending fix release to <3.14.3 releases.
+# Integer overflow in util-linux. Waiting for fix to be released in Debian stable.
+CVE-2026-53615
+
+# ==========================
+# Python Issues
+# ==========================
+
+# Fixed in Python 3.15, waiting for fix to propagate to <3.15.0 releases.
+CVE-2026-0865
+CVE-2025-15282
+CVE-2026-0672
+CVE-2025-15366
+CVE-2025-15367
+CVE-2025-11468
+CVE-2025-12781
+CVE-2026-1299
+
+# Fixed in Python 3.15, waiting for fix to propagate to <3.15 releases.
+CVE-2026-2297
+CVE-2026-4519
+CVE-2026-3298
+CVE-2026-1502
+CVE-2026-4224
+CVE-2026-3644
+
+# Additional CVE raised to address remaining URL corruption issue - pending fix release to <3.14.3 releases.
 CVE-2026-4786
 
-# Arbitrary code execution vulnerability in Python. Fix included in Python 3.14.5 release (see commit [48c3c7f](https://github.com/python/cpython/commit/48c3c7fb730e447ae1d8d2dec8f4a8b145687567))
+# Fix included in Python 3.14.5 release - Grype database still showing as vulnerable. Confirmed patch included in 3.14.5 (commit 48c3c7f) release, waiting for Grype DB update.
 CVE-2026-6100
 
 # base64 decode failure in Python. Fixed in Python 3.13.13 - Pending fix release to 3.12 releases. Only exploitable when parsing untrusted base64 data with `base64.b64decode()`. Use `validate=True` to mitigate in the meantime.
@@ -128,7 +124,7 @@ CVE-2026-11940
 # Exponential archive parsing in Python. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases. Only exploitable if opening tar archives using streaming mode.
 CVE-2026-11972
 
-# Installation path traversal in Python. Doesn't impact this image - issue only impacts the Windows installer. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases.
+# Installation path traversal. Doesn't impact this image - issue only impacts the Windows installer.
 CVE-2026-12003
 
 # CRLF injection in Python. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases.
@@ -151,3 +147,20 @@ CVE-2026-9669
 
 # Hash flooding / insufficient entropy in xml.parsers.expat and xml.etree.ElementTree. Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport blocked pending cpython#151401.
 CVE-2026-7210
+
+# HTML parsing / Denial of Service in html.parser. Fixed in 3.15 - awaiting fix propagation to <3.15 releases. Only exploitable when parsing untrusted HTML content with html.parser.
+CVE-2026-15308
+
+# Tar extraction / permission bypass in tarfile. Fixed in all upstream branches - awaiting release of 3.12, 3.13 and 3.14 releases. Only exploitable when extracting untrusted tar files with tarfile modules.
+CVE-2026-4360
+
+# ==========================
+# pip vendored dependency issues
+# ==========================
+
+# Outdated msgpack bundled inside pip's own pip/_vendor/msgpack (pip 26.2, the latest release). Not the top-level msgpack package, which is already pinned to the fixed 1.2.1 release in the Dockerfile. Only used internally by pip's HTTP cache; waiting for pip to update its vendored copy.
+GHSA-6v7p-g79w-8964
+
+# Outdated setuptools referenced in pip's own pip/_vendor/vendor.txt (pip 26.2, the latest release). Not the top-level setuptools package, which is already pinned to the fixed 83.0.0 release in the Dockerfile. Waiting for pip to update its vendored reference.
+CVE-2025-47273
+CVE-2026-59890
