@@ -81,6 +81,9 @@ ignore:
   # Denial of Service (assertion failure/process abort) in glibc DNS stub resolver via long search domain in resolv.conf. Requires an attacker-influenced /etc/resolv.conf (e.g. malicious DHCP/VPN) - flagged for re-assessment given any Python code performing DNS resolution relies on this resolver. Fixed in glibc 2.43-6 (sid) - waiting for fix to be released in Debian stable.
   - vulnerability: CVE-2026-8674
 
+  # Memory exhaustion in perl. Not exploitable; documented in POLICY_CONFIGURATION.md.
+  - vulnerability: CVE-2026-82560
+
   # ==========================
   # Python Issues
   # ==========================
@@ -159,9 +162,7 @@ ignore:
 
   # Tarfile vulnerability: handle a member that leaves the destination and comes back (gh-155999, PR #156000). Only exploitable when extracting untrusted tar archives. Mitigation: use tarfile.data_filter when extracting untrusted tar files.
   - vulnerability: CVE-2026-19672
-
-  # Awaiting public CVE details and formal disclosure.
-  - vulnerability: CVE-2026-87910
+  - vulnerability: CVE-2026-82049
 
   # HTTPPasswordMgr vulnerability: credentials for https:// URI incorrectly matched against http:// URI due to scheme being discarded in reduce_uri(). Fixed in 3.15.0rc2 and backported to 3.10+ (PR #155696). Only exploitable with mixed http/https endpoints and specific urllib usage patterns.
   - vulnerability: CVE-2026-15806

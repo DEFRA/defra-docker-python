@@ -41,6 +41,7 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2026-85091 | Heap buffer overflow | zlib1g | 21/09/2026 | affects zlib 1.3.1.2 through 1.3.2 as shipped in Debian trixie; no upstream fix released yet (Debian bug #1146895 open, unfixed in unstable). zlib is used broadly for compression/decompression (including via Python's `zlib` module), so this should be re-assessed and patched once an upstream/Debian fix lands. |
 | CVE-2026-8674 | Denial of Service (assertion failure / process abort) | libc (libc6, libc-bin) | 21/09/2026 | requires an attacker-influenced `/etc/resolv.conf` (e.g. via a malicious DHCP/VPN server on the local network) with a search domain of ~200+ characters, aborting any process using the DNS stub resolver. Any Python code performing DNS resolution relies on glibc's resolver, so this could affect availability in network-facing deployments. Fixed in glibc 2.43-6 (sid) - waiting for fix to be released in Debian stable. |
 | CVE-2026-89092 | Stack overflow / Denial of Service | libc (libc6, libc-bin) | 21/09/2026 | Requires `nscd` to be enabled and configured against an untrusted/compromised DNS server - `nscd` is not installed/running in this image. No fix currently available upstream (unfixed in sid). |
+| CVE-2026-82560 | Memory exhaustion | perl | 22/09/2026 | Not exploitable - requires Pod::Text which is not present in this image |
 
 ### Python issues
 
@@ -80,8 +81,8 @@ The following Python issues have been added to the policies exclusion list:
 | CVE-2026-4360 | Tar extraction / permission bypass | python | 03/07/2026 | `<3.15` | Fixed in all upstream branches - awaiting release of `3.12`, `3.13` and `3.14` releases. Only exploitable when extracting untrusted tar files with `tarfile` modules. |
 | CVE-2026-17084 | (Details TBD) | python | 21/09/2026 | `<3.15` | Highest EPSS among Python 3.14 vulnerabilities (0.6%) - fixed in `3.15.0rc2`. Awaiting public CVE details and formal disclosure. |
 | CVE-2026-19672 | Tarfile path traversal / member escape | python | 21/09/2026 | `<3.14.8` | Tarfile vulnerability: handle a member that leaves the destination and comes back (gh-155999, PR #156000). Only exploitable when extracting untrusted tar archives. Mitigation: use `tarfile.data_filter` when extracting untrusted tar files. |
-| CVE-2026-87910 | (Details TBD) | python | 21/09/2026 | `<3.14.x` | Awaiting public CVE details and formal disclosure. |
 | CVE-2026-15806 | HTTPPasswordMgr credential scope bypass | python | 21/09/2026 | `<3.15` | HTTPPasswordMgr vulnerability (gh-155694): credentials for https:// URI incorrectly matched against http:// URI due to scheme being discarded in `reduce_uri()`. Fixed in `3.15.0rc2` and backported to `3.10+` (PR #155696). Only exploitable with mixed http/https endpoints and specific urllib usage patterns. |
+| CVE-2026-82049 | Tarfile filter bypass via symlink | python | 22/09/2026 | `<3.14` | Tarfile vulnerability: Only exploitable when extracting untrusted tar archives. Waiting for fix to be released for affected Python versions |
 
 ### pip vendored dependency issues
 The following issues originate from copies of dependencies bundled inside pip's own `pip/_vendor` directory rather than the top-level installed packages (which are already pinned to fixed versions in the [Dockerfile](Dockerfile)). They cannot be resolved with `pip install --upgrade` and require a new pip release that updates its vendored copies.
