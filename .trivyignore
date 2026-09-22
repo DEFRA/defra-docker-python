@@ -147,6 +147,18 @@ CVE-2026-15308
 # Tar extraction / permission bypass in tarfile. Fixed in all upstream branches - awaiting release of 3.12, 3.13 and 3.14 releases. Only exploitable when extracting untrusted tar files with tarfile modules.
 CVE-2026-4360
 
+# Highest EPSS among Python 3.14 vulnerabilities (0.6%) - fixed in 3.15.0rc2. Awaiting public CVE details and formal disclosure.
+CVE-2026-17084
+
+# Tarfile vulnerability: handle a member that leaves the destination and comes back (gh-155999, PR #156000). Only exploitable when extracting untrusted tar archives. Mitigation: use tarfile.data_filter when extracting untrusted tar files.
+CVE-2026-19672
+
+# Awaiting public CVE details and formal disclosure.
+CVE-2026-87910
+
+# HTTPPasswordMgr vulnerability: credentials for https:// URI incorrectly matched against http:// URI due to scheme being discarded in reduce_uri(). Fixed in 3.15.0rc2 and backported to 3.10+ (PR #155696). Only exploitable with mixed http/https endpoints and specific urllib usage patterns.
+CVE-2026-15806
+
 # ==========================
 # pip vendored dependency issues
 # ==========================
