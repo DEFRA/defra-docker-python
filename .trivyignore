@@ -2,9 +2,6 @@
 # OS / Base Image Issues
 # ==========================
 
-# util-linux fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
-CVE-2025-14104
-
 # ncurses fix blocked by glibc upgrade requirement, waiting for backport or fix in next Debian stable release.
 CVE-2025-6141
 CVE-2025-69720
@@ -19,43 +16,17 @@ CVE-2026-5704
 CVE-2026-18477
 CVE-2026-18508
 
-# TOCTOU / Unauthorized file read in util-linux. Not exploitable in this container image; requires /etc/fstab with user,loop options.
-CVE-2026-27456
-
 # Hostname spoofing in util-linux. Waiting for fix in unstable - fix might only be possible in next Debian stable release.
 CVE-2026-3184
 
 # Out-of-bounds write in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
 CVE-2026-5435
 
-# Buffer overflow in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
-CVE-2026-5450
-
-# Buffer overread in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
-CVE-2026-5928
-
 # DNS Verification Bypass in libc. Waiting for fix in unstable - risks with backporting / upgrading glibc - fix might only be possible in next Debian stable release.
 CVE-2026-6238
 
 # perl vulnerabilities - waiting for fixes to be released by perl maintainers or in Debian stable.
-CVE-2026-42496
-CVE-2026-8376
-CVE-2025-15649
-CVE-2026-12087
-CVE-2026-48959
-CVE-2026-48961
-CVE-2026-7010
-CVE-2026-42497
-CVE-2026-48962
 CVE-2026-9538
-CVE-2026-13221
-CVE-2026-57432
-CVE-2026-57433
-CVE-2026-7017
-
-# Buffer overflow / arbitrary file overwrite in gzip. Waiting for fix to be released in Debian stable.
-CVE-2026-41992
-CVE-2026-41991
 
 # Symlink traversal in acl. Fix released by acl maintainers - waiting for fix to be released in Debian stable.
 CVE-2026-54370
@@ -64,18 +35,11 @@ CVE-2026-54369
 # Symlink traversal in attr. Fix released by attr maintainers - waiting for fix to be released in Debian stable.
 CVE-2026-54371
 
-# Unallocated memory read in util-linux. Fixed in Debian testing (forky) but backport held up by glibc upgrade requirement.
-CVE-2026-13595
-
 # Denial of Service in bzip2. Waiting for fix to be released in Debian stable.
 CVE-2026-42250
 
 # Timing discrepancy / Plaintext password recovery in linux-pam. Only exploitable when pam_userdb is configured with crypt=none.
 CVE-2026-54411
-
-# Memory corruption / Buffer overflow in sqlite3. Fixed in sqlite3 3.53.2 - waiting for fix to be released in Debian stable.
-CVE-2026-11822
-CVE-2026-11824
 
 # Null pointer reference / Denial of Service, and Information disclosure in libsqlite3. Fixed in sqlite3 3.53.2-1 - waiting for fix to be released in Debian stable.
 CVE-2026-50812
@@ -84,8 +48,37 @@ CVE-2026-50813
 # GPG Validation in apt. Waiting for fix to be released in Debian stable.
 CVE-2011-3374
 
-# Integer overflow in util-linux. Waiting for fix to be released in Debian stable.
-CVE-2026-53615
+# Path traversal / arbitrary process termination in systemd-oomd, and local privilege escalation in systemd-homed (libudev1). Not exploitable in this image - systemd-oomd/systemd-homed are not present/running in this container. Fix only available in forky/sid.
+CVE-2026-15059
+CVE-2026-16742
+
+# Arbitrary code execution / OOB memory access, and incorrect regex matching in perl regex engine (perl-base). Not reachable via any code path in this image (Perl not invoked as a service). Waiting for fix to be released in Debian stable.
+CVE-2026-15534
+CVE-2026-19487
+
+# Heap buffer overflow via fopen ccs=, buffer overflow in strfmon, out-of-bounds write in tdelete, process abort/DoS and stack exhaustion in wordexp, and infinite loop/hang in iconv SHIFT_JISX0213/EUC_JISX0213 conversion (libc). None of these code paths are used by the Python stdlib or in this image. Waiting for fix to be released in Debian stable.
+CVE-2026-18374
+CVE-2026-19499
+CVE-2026-19542
+CVE-2026-6368
+CVE-2026-6791
+CVE-2026-77117
+CVE-2026-80489
+
+# Privilege escalation via unchecked mount post-hooks, nsenter --join-cgroup cgroup migration authority leak, X-mount.subdir symlink traversal, and bind mount source redirection in util-linux. Not applicable to this image - no fstab-based mount workflow or nsenter usage; runs as non-root entrypoint. Waiting for fix to be released in Debian stable.
+CVE-2026-76642
+CVE-2026-78408
+CVE-2026-78409
+CVE-2026-78410
+
+# Stack overflow / DoS in nscd via oversized DNS response (libc). Not exploitable in this image - nscd is not installed/running. No fix currently available upstream.
+CVE-2026-89092
+
+# Heap buffer overflow in zlib (1.3.1.2-1.3.2). No upstream fix released yet (Debian bug #1146895). zlib is used broadly for compression/decompression (including via Python's zlib module) - flagged for re-assessment once an upstream/Debian fix lands.
+CVE-2026-85091
+
+# Denial of Service (assertion failure/process abort) in glibc DNS stub resolver via long search domain in resolv.conf. Requires an attacker-influenced /etc/resolv.conf (e.g. malicious DHCP/VPN) - flagged for re-assessment given any Python code performing DNS resolution relies on this resolver. Fixed in glibc 2.43-6 (sid) - waiting for fix to be released in Debian stable.
+CVE-2026-8674
 
 # ==========================
 # Python Issues
