@@ -167,6 +167,9 @@ ignore:
   # HTTPPasswordMgr vulnerability: credentials for https:// URI incorrectly matched against http:// URI due to scheme being discarded in reduce_uri(). Fixed in 3.15.0rc2 and backported to 3.10+ (PR #155696). Only exploitable with mixed http/https endpoints and specific urllib usage patterns.
   - vulnerability: CVE-2026-15806
 
+  # Tarfile vulnerability: tarfile hardlink fallback ignores custom extraction filter rejection. Only exploitable when extracting untrusted tar files.
+  - vulnerability: CVE-2026-87910
+
   # ==========================
   # pip vendored dependency issues
   # ==========================
