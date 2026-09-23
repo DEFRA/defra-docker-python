@@ -84,6 +84,9 @@ ignore:
   # Memory exhaustion in perl. Not exploitable; documented in POLICY_CONFIGURATION.md.
   - vulnerability: CVE-2026-82560
 
+  # Local privilege escalation (TOCTOU in dynamic loader) in glibc. Waiting for fix to be merged upstream and to be included in Debian release.
+  - vulnerability: CVE-2026-86805
+
   # ==========================
   # Python Issues
   # ==========================

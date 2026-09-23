@@ -42,6 +42,7 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2026-8674 | Denial of Service (assertion failure / process abort) | libc (libc6, libc-bin) | 21/09/2026 | requires an attacker-influenced `/etc/resolv.conf` (e.g. via a malicious DHCP/VPN server on the local network) with a search domain of ~200+ characters, aborting any process using the DNS stub resolver. Any Python code performing DNS resolution relies on glibc's resolver, so this could affect availability in network-facing deployments. Fixed in glibc 2.43-6 (sid) - waiting for fix to be released in Debian stable. |
 | CVE-2026-89092 | Stack overflow / Denial of Service | libc (libc6, libc-bin) | 21/09/2026 | Requires `nscd` to be enabled and configured against an untrusted/compromised DNS server - `nscd` is not installed/running in this image. No fix currently available upstream (unfixed in sid). |
 | CVE-2026-82560 | Memory exhaustion | perl | 22/09/2026 | Not exploitable - requires Pod::Text which is not present in this image |
+| CVE-2026-86805 | Local privilege escalation (TOCTOU in dynamic loader) | libc (libc6, libc-bin) | 23/09/2026 | Waiting for fix to be merged upstream and to be included in Debian release |
 
 ### Python issues
 
