@@ -43,6 +43,7 @@ The following OS / base image issues have been added to the policies exclusion l
 | CVE-2026-89092 | Stack overflow / Denial of Service | libc (libc6, libc-bin) | 21/09/2026 | Requires `nscd` to be enabled and configured against an untrusted/compromised DNS server - `nscd` is not installed/running in this image. No fix currently available upstream (unfixed in sid). |
 | CVE-2026-82560 | Memory exhaustion | perl | 22/09/2026 | Not exploitable - requires Pod::Text which is not present in this image |
 | CVE-2026-86805 | Local privilege escalation (TOCTOU in dynamic loader) | libc (libc6, libc-bin) | 23/09/2026 | Waiting for fix to be merged upstream and to be included in Debian release |
+| CVE-2026-95818 | Stack-based buffer overflow / Denial of Service / Information disclosure | libc (libc6, libc-bin) | 23/09/2026 | Waiting for fix to be merged upstream and to be included in Debian release. Only exploitable by a local attacker against setuid/setgid (AT_SECURE) programs — limited scope |
 
 ### Python issues
 
