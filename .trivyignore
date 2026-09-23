@@ -83,6 +83,12 @@ CVE-2026-8674
 # Memory exhaustion in perl. Not exploitable; documented in POLICY_CONFIGURATION.md.
 CVE-2026-82560
 
+# Local privilege escalation (TOCTOU in dynamic loader) in glibc. Waiting for fix to be merged upstream and to be included in Debian release.
+CVE-2026-86805
+
+# Stack-based buffer overflow in glibc dynamic loader. Waiting for fix to be merged upstream and to be included in Debian release. Only exploitable by a local attacker against setuid/setgid (AT_SECURE) programs — limited scope.
+CVE-2026-95818
+
 # ==========================
 # Python Issues
 # ==========================
