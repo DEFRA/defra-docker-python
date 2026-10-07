@@ -49,7 +49,7 @@ jobs:
           daemon-config: |
             {
               "features": {
-                "containerd-snapshotter": true
+                "containerd-snapshotter": false
               }
             }
         
@@ -88,7 +88,7 @@ jobs:
         run: |
           docker buildx build . --file Dockerfile \
           --no-cache \
-          --platform linux/amd64,linux/arm64 \
+          --platform linux/amd64 \
           --load \
           --target=${{matrix.target}} \
           --build-arg DEFRA_VERSION=$DEFRA_VERSION \
