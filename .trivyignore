@@ -89,6 +89,12 @@ CVE-2026-86805
 # Stack-based buffer overflow in glibc dynamic loader. Waiting for fix to be merged upstream and to be included in Debian release. Only exploitable by a local attacker against setuid/setgid (AT_SECURE) programs — limited scope.
 CVE-2026-95818
 
+# Use-after-free in libstdc++ binary heap erase_if (gcc-14). Only reachable from C++ code calling erase_if on that heap and linking the system libstdc++ - not used by CPython. Debian trixie unfixed (no-dsa, minor) - waiting for fix to be released in Debian stable.
+CVE-2026-102010
+
+# Integer overflow in libstdc++ aligned operator new (gcc-14). Only reachable from C++ extension modules using over-aligned new with attacker-controlled sizes and the system libstdc++ - not used by CPython. Unfixed in Debian trixie and sid - waiting for fix to be released in Debian stable.
+CVE-2026-95619
+
 # ==========================
 # Python Issues
 # ==========================
@@ -169,6 +175,9 @@ CVE-2026-15806
 # Tarfile vulnerability: tarfile hardlink fallback ignores custom extraction filter rejection. Only exploitable when extracting untrusted tar files.
 CVE-2026-87910
 
+# Race condition in tempfile.TemporaryDirectory cleanup (cpython#157579): replacing a directory with a symlink during cleanup can delete or chmod files outside the temp dir. Fixed in 3.15.0; backports merged to 3.13 and 3.14 (PR #158429, #158430) but not yet released, 3.12 backports reverted. Only exploitable locally when the temp tree is attacker-writable during cleanup.
+CVE-2026-12345
+
 # ==========================
 # pip vendored dependency issues
 # ==========================
@@ -179,3 +188,8 @@ GHSA-6v7p-g79w-8964
 # Outdated setuptools referenced in pip's own pip/_vendor/vendor.txt (pip 26.2, the latest release). Not the top-level setuptools package, which is already pinned to the fixed 83.0.0 release in the Dockerfile. Waiting for pip to update its vendored reference.
 CVE-2025-47273
 CVE-2026-59890
+
+# urllib3 2.7.0 vendored in pip/_vendor/urllib3 (pip 26.2.1) - fixed in urllib3 2.8.0. Only used by pip at build time; waiting for pip to update its vendored copy.
+CVE-2026-97687
+CVE-2026-97688
+CVE-2026-97689
