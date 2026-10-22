@@ -45,16 +45,12 @@ CVE-2026-54411
 CVE-2026-50812
 CVE-2026-50813
 
-# GPG Validation in apt. Waiting for fix to be released in Debian stable.
-CVE-2011-3374
-
 # Path traversal / arbitrary process termination in systemd-oomd, and local privilege escalation in systemd-homed (libudev1). Not exploitable in this image - systemd-oomd/systemd-homed are not present/running in this container. Fix only available in forky/sid.
 CVE-2026-15059
 CVE-2026-16742
 
-# Arbitrary code execution / OOB memory access, and incorrect regex matching in perl regex engine (perl-base). Not reachable via any code path in this image (Perl not invoked as a service). Waiting for fix to be released in Debian stable.
+# Arbitrary code execution / OOB memory access in perl regex engine (perl-base). Not reachable via any code path in this image (Perl not invoked as a service). Waiting for fix to be released in Debian stable.
 CVE-2026-15534
-CVE-2026-19487
 
 # Heap buffer overflow via fopen ccs=, buffer overflow in strfmon, out-of-bounds write in tdelete, process abort/DoS and stack exhaustion in wordexp, and infinite loop/hang in iconv SHIFT_JISX0213/EUC_JISX0213 conversion (libc). None of these code paths are used by the Python stdlib or in this image. Waiting for fix to be released in Debian stable.
 CVE-2026-18374
@@ -100,80 +96,15 @@ CVE-2026-95619
 # ==========================
 
 # Fixed in Python 3.15, waiting for fix to propagate to <3.15.0 releases.
-CVE-2026-0865
-CVE-2025-15282
-CVE-2026-0672
 CVE-2025-15366
 CVE-2025-15367
-CVE-2025-11468
 CVE-2025-12781
-CVE-2026-1299
-
-# Fixed in Python 3.15, waiting for fix to propagate to <3.15 releases.
-CVE-2026-2297
-CVE-2026-4519
-CVE-2026-3298
-CVE-2026-1502
-CVE-2026-4224
-CVE-2026-3644
-
-# Additional CVE raised to address remaining URL corruption issue - pending fix release to <3.14.3 releases.
-CVE-2026-4786
-
-# Fix included in Python 3.14.5 release - Grype database still showing as vulnerable. Confirmed patch included in 3.14.5 (commit 48c3c7f) release, waiting for Grype DB update.
-CVE-2026-6100
 
 # base64 decode failure in Python. Fixed in Python 3.13.13 - Pending fix release to 3.12 releases. Only exploitable when parsing untrusted base64 data with `base64.b64decode()`. Use `validate=True` to mitigate in the meantime.
 CVE-2026-3446
 
-# Arbitrary file access in Python. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases. Only exploitable if uncompressing untrusted tar files with tarfile modules.
-CVE-2026-11940
-
-# Exponential archive parsing in Python. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases. Only exploitable if opening tar archives using streaming mode.
-CVE-2026-11972
-
-# Installation path traversal. Doesn't impact this image - issue only impacts the Windows installer.
-CVE-2026-12003
-
-# CRLF injection in Python. Fixed in upstream branches with the exception of 3.12 - Pending inclusion of fix in 3.12, 3.13 and 3.14 releases.
-CVE-2026-0864
-
 # HTML/Script injection in http.cookies.Morsel.js_output(). Fixed in 3.13.14, 3.14.5rc1, 3.15.0b1 - no 3.12 backport available yet.
 CVE-2026-6019
-
-# SSRF in ftplib.ftpcp() via PASV bypass. Patch committed to 3.12 branch (commit c887044) - awaiting 3.12.14 release.
-CVE-2026-8328
-
-# Path traversal via tarfile.data_filter bypass. Patch committed to 3.12 branch (commit 0d28f5e) - awaiting 3.12.14 release.
-CVE-2026-7774
-
-# CPU consumption / DoS in unicodedata.normalize(). Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport PR open (cpython#150843), pending merge and release.
-CVE-2026-3276
-
-# Stack-based buffer overflow in bz2.BZ2Decompressor reuse after error. Fixed in 3.13.14, 3.14.6, 3.15.0b3 - 3.12 backport PR open (cpython#151057), pending merge and release.
-CVE-2026-9669
-
-# Hash flooding / insufficient entropy in xml.parsers.expat and xml.etree.ElementTree. Fixed in 3.13.14, 3.14.6, 3.15.0b2 - 3.12 backport blocked pending cpython#151401.
-CVE-2026-7210
-
-# HTML parsing / Denial of Service in html.parser. Fixed in 3.15 - awaiting fix propagation to <3.15 releases. Only exploitable when parsing untrusted HTML content with html.parser.
-CVE-2026-15308
-
-# Tar extraction / permission bypass in tarfile. Fixed in all upstream branches - awaiting release of 3.12, 3.13 and 3.14 releases. Only exploitable when extracting untrusted tar files with tarfile modules.
-CVE-2026-4360
-
-# Highest EPSS among Python 3.14 vulnerabilities (0.6%) - fixed in 3.15.0rc2. Awaiting public CVE details and formal disclosure.
-CVE-2026-17084
-
-# Tarfile vulnerability: handle a member that leaves the destination and comes back (gh-155999, PR #156000). Only exploitable when extracting untrusted tar archives. Mitigation: use tarfile.data_filter when extracting untrusted tar files.
-CVE-2026-19672
-CVE-2026-82049
-
-# HTTPPasswordMgr vulnerability: credentials for https:// URI incorrectly matched against http:// URI due to scheme being discarded in reduce_uri(). Fixed in 3.15.0rc2 and backported to 3.10+ (PR #155696). Only exploitable with mixed http/https endpoints and specific urllib usage patterns.
-CVE-2026-15806
-
-# Tarfile vulnerability: tarfile hardlink fallback ignores custom extraction filter rejection. Only exploitable when extracting untrusted tar files.
-CVE-2026-87910
 
 # Race condition in tempfile.TemporaryDirectory cleanup (cpython#157579): replacing a directory with a symlink during cleanup can delete or chmod files outside the temp dir. Fixed in 3.15.0; backports merged to 3.13 and 3.14 (PR #158429, #158430) but not yet released, 3.12 backports reverted. Only exploitable locally when the temp tree is attacker-writable during cleanup.
 CVE-2026-12345
