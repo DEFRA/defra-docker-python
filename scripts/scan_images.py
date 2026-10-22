@@ -12,17 +12,27 @@ Usage:
     scripts/scan_images.py -v 3.14 -v 3.13     # only matching python versions
     scripts/scan_images.py --skip-build        # reuse images from a previous run
     scripts/scan_images.py --no-cache          # match CI's --no-cache build
+    scripts/scan_images.py --no-ignore         # ignore files disabled; find policy entries to drop
 
 Images are built and scanned concurrently (asyncio); per-command output goes to
 <out>/logs/ so the console only shows progress lines.
 
-Exits 1 if any medium+ finding remains after the ignore files are applied.
+With --no-ignore, neither .trivyignore nor .grype.yaml is applied, and the
+report ends with a comparison against POLICY_CONFIGURATION.md: entries that no
+scanner reported on any scanned image are candidates for removal from the policy
+and both ignore files. Scan every image in the matrix (no --version filter) for
+that comparison to be meaningful.
+
+Exits 1 if any medium+ finding remains after the ignore files are applied. With
+--no-ignore the findings are expected, so it exits 0 unless a scan fails.
 """
 
 import argparse
 import asyncio
 import csv
 import json
+import os
+import re
 import shutil
 import sys
 import time
@@ -33,6 +43,8 @@ REPO = Path(__file__).resolve().parent.parent
 SEVERITIES = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
 RANK = {name: i for i, name in enumerate(SEVERITIES)}
 TAG_PREFIX = "defra-scan/python"
+POLICY_FILE = REPO / "POLICY_CONFIGURATION.md"
+POLICY_ID = re.compile(r"^\|\s*((?:CVE-\d{4}-\d+)|(?:GHSA(?:-[0-9a-z]{4}){3}))\s*\|", re.IGNORECASE)
 COLOURS = {"CRITICAL": "35", "HIGH": "31", "MEDIUM": "33", "LOW": "36"}
 
 
@@ -118,11 +130,13 @@ async def build(image: dict, defra_version: str, tag: str, target: str, no_cache
     await run(cmd, log)
 
 
-async def scan_trivy(archive: Path, out: Path, name: str) -> list[Finding]:
+async def scan_trivy(archive: Path, out: Path, name: str, use_ignore: bool) -> list[Finding]:
     raw = out / f"{name}.trivy.json"
     cmd = [
         "trivy", "image", "--input", str(archive), "--scanners", "vuln",
-        "--pkg-types", "os,library", "--ignorefile", ".trivyignore",
+        "--pkg-types", "os,library",
+        # Trivy loads ./.trivyignore by default, so disabling it needs an explicit empty file
+        "--ignorefile", ".trivyignore" if use_ignore else os.devnull,
         "--severity", ",".join(SEVERITIES[1:]), "--quiet",
         "--format", "json", "--output", str(raw),
     ]
@@ -143,10 +157,15 @@ async def scan_trivy(archive: Path, out: Path, name: str) -> list[Finding]:
     return findings
 
 
-async def scan_grype(archive: Path, out: Path, name: str) -> list[Finding]:
+async def scan_grype(archive: Path, out: Path, name: str, use_ignore: bool) -> list[Finding]:
     raw = out / f"{name}.grype.json"
+    config = ".grype.yaml"
+    if not use_ignore:
+        # Grype also auto-discovers ./.grype.yaml, so point --config at an empty file instead
+        config = str(out / "grype-no-ignore.yaml")
+        Path(config).write_text("ignore: []\n")
     cmd = [
-        "grype", f"docker-archive:{archive}", "--config", ".grype.yaml", "--quiet",
+        "grype", f"docker-archive:{archive}", "--config", config, "--quiet",
         "-o", f"json={raw}", "-o", f"table={out / f'{name}.grype.txt'}",
     ]
     async with TOOL_LOCKS["grype"]:
@@ -177,7 +196,8 @@ async def scan_image(
             await build(image, defra_version, tag, args.target, args.no_cache, logs / f"{name}-build.log")
         await run(["docker", "save", tag, "-o", str(archive)], logs / f"{name}-save.log")
     try:
-        trivy, grype = await asyncio.gather(scan_trivy(archive, out, name), scan_grype(archive, out, name))
+        trivy, grype = await asyncio.gather(
+            scan_trivy(archive, out, name, not args.no_ignore), scan_grype(archive, out, name, not args.no_ignore))
     finally:
         if not args.keep_archives:
             archive.unlink(missing_ok=True)
@@ -199,7 +219,35 @@ def merge(findings: list[Finding]) -> dict[tuple[str, str], dict]:
     return merged
 
 
-def report(results: dict[str, list[Finding]], out: Path) -> int:
+def policy_ids() -> list[str]:
+    """IDs from the first column of every table row in POLICY_CONFIGURATION.md, in file order."""
+    ids = []
+    for line in POLICY_FILE.read_text(encoding="utf-8").splitlines():
+        if match := POLICY_ID.match(line):
+            ids.append(match.group(1).upper())
+    return ids
+
+
+def emit_policy_comparison(emit, found: set[str]) -> None:
+    ids = policy_ids()
+    gone = [i for i in ids if i not in found]
+    emit("\n" + "=" * 78)
+    emit(f"POLICY ENTRIES NOT REPORTED BY ANY SCANNER: {len(gone)} of {len(ids)} (candidates for removal)")
+    emit("=" * 78)
+    if gone:
+        emit("Remove from POLICY_CONFIGURATION.md, .grype.yaml and .trivyignore after checking each:")
+        for i in gone:
+            emit(f"  {i}")
+    else:
+        emit("(none, every policy entry is still reported)")
+    unlisted = sorted(found - set(ids))
+    if unlisted:
+        emit(f"\nREPORTED BUT NOT IN POLICY: {len(unlisted)} (new findings needing triage)")
+        for i in unlisted:
+            emit(f"  {i}")
+
+
+def report(results: dict[str, list[Finding]], out: Path, use_ignore: bool) -> int:
     names = list(results)
     per_image = {n: merge(fs) for n, fs in results.items()}
     all_keys = sorted({k for rows in per_image.values() for k in rows})
@@ -210,7 +258,7 @@ def report(results: dict[str, list[Finding]], out: Path) -> int:
         print(text)
 
     emit("\n" + "=" * 78)
-    emit("SUMMARY (medium+ after ignore files)")
+    emit("SUMMARY (medium+ after ignore files)" if use_ignore else "SUMMARY (medium+, ignore files NOT applied)")
     emit("=" * 78)
     emit(f"{'image':<14}" + "".join(f"{s:>10}" for s in reversed(SEVERITIES[1:])) + f"{'trivy':>8}{'grype':>8}")
     for n in names:
@@ -262,7 +310,9 @@ def report(results: dict[str, list[Finding]], out: Path) -> int:
         r = row_for(k)
         emit(f"{sev(r['severity'])} {r['id']:<24}{r['package']:<22}only {next(iter(r['tools']))}")
 
-    if all_keys:
+    if not use_ignore:
+        emit_policy_comparison(emit, {k[0].upper() for k in all_keys})
+    elif all_keys:
         emit("\n" + "=" * 78)
         emit("IGNORE STUBS (paste into the ignore files after triage; keep both in sync)")
         emit("=" * 78)
@@ -303,6 +353,8 @@ def main() -> None:
     parser.add_argument("--skip-build", action="store_true", help="scan images already tagged by a previous run")
     parser.add_argument("--no-cache", action="store_true", help="build with --no-cache like CI")
     parser.add_argument("--jobs", type=int, help="max concurrent image builds (default: all images at once)")
+    parser.add_argument("--no-ignore", action="store_true",
+                        help="disable .trivyignore and .grype.yaml and compare findings with POLICY_CONFIGURATION.md")
     parser.add_argument("--keep-archives", action="store_true", help="keep docker save tarballs in the output dir")
     args = parser.parse_args()
 
@@ -320,10 +372,10 @@ def main() -> None:
     (out / "logs").mkdir(exist_ok=True)
 
     results = asyncio.run(scan_all(select_images(args.version), load_defra_version(), args, out))
-    total = report(results, out)
+    total = report(results, out, not args.no_ignore)
     print(f"\nArtifacts saved to {out}")
     print("  report.txt, findings.csv, <image>.trivy.{json,txt}, <image>.grype.{json,txt}, logs/")
-    sys.exit(1 if total else 0)
+    sys.exit(1 if total and not args.no_ignore else 0)
 
 
 if __name__ == "__main__":
