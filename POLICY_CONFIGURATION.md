@@ -49,12 +49,12 @@ The following OS / base image issues have been added to the policies exclusion l
 The following Python issues have been added to the policies exclusion list:
 | CVE ID | Type | Component | Date Added | Affected Versions | Reason |
 |--------|------|-----------|------|-------------------|--------|
-| CVE-2025-15366 | Command Injection (imaplib) | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
-| CVE-2025-15367 | Command Injection (poplib) | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
-| CVE-2025-12781 | Base64 Decoding Behavior / Data Integrity | python | 16/02/2026 | `<3.15` | Fixed in `3.15.0` - Pending fix propagation to `<3.15.0` releases. |
-| CVE-2026-3446 | base64 decode failure | python | 12/05/2026 | `<3.13` | Fixed in `3.13.13` - Pending fix release to `3.12` releases. Only exploitable when parsing untrusted base64 data with `base64.b64decode()`. Use `validate=True` to mitigate in the meantime. |
-| CVE-2026-6019 | HTML / Script Injection (`Morsel.js_output()`) | python | 03/07/2026 | `<3.13.14` | Fixed in `3.13.14`, `3.14.5rc1`, `3.15.0b1`. No `3.12` backport available yet — pending fix release to `3.12`. |
-| CVE-2026-12345 | Race condition (`tempfile.TemporaryDirectory` cleanup symlink) | python | 07/10/2026 | `<3.15` | Fixed in `3.15.0`; backports merged to `3.13` and `3.14` (see [cpython#157579](https://github.com/python/cpython/issues/157579)) but not yet released, `3.12` backports reverted. Only exploitable locally when the temp tree is attacker-writable during cleanup. |
+| CVE-2025-15366 | Command Injection (imaplib) | python | 16/02/2026 | `3.12 only` | Fixed in `3.15.0` - not backported to 3.12. |
+| CVE-2025-15367 | Command Injection (poplib) | python | 16/02/2026 | `3.12 only` | Fixed in `3.15.0` - not backported to 3.12. |
+| CVE-2025-12781 | Base64 Decoding Behavior / Data Integrity | python | 16/02/2026 | `3.12 only` | Fixed in `3.15.0` - not backported to 3.12. |
+| CVE-2026-3446 | base64 decode failure | python | 12/05/2026 | `3.12, 3.13` | Fixed in `3.13.13` - no 3.12 backport available. Only exploitable when parsing untrusted base64 data with `base64.b64decode()`. Use `validate=True` to mitigate. |
+| CVE-2026-6019 | HTML / Script Injection (`Morsel.js_output()`) | python | 03/07/2026 | `3.12, 3.14` | Fixed in `3.13.14`, `3.14.5rc1`, `3.15.0b1`. No `3.12` backport available yet. |
+| CVE-2026-12345 | Race condition (`tempfile.TemporaryDirectory` cleanup symlink) | python | 07/10/2026 | `3.12, 3.13, 3.14` | Fixed in `3.15.0`; backports merged to `3.13` and `3.14` (see [cpython#157579](https://github.com/python/cpython/issues/157579)) but not yet released, `3.12` backports reverted. Only exploitable locally when the temp tree is attacker-writable during cleanup. |
 
 ### pip vendored dependency issues
 The following issues originate from copies of dependencies bundled inside pip's own `pip/_vendor` directory rather than the top-level installed packages (which are already pinned to fixed versions in the [Dockerfile](Dockerfile)). They cannot be resolved with `pip install --upgrade` and require a new pip release that updates its vendored copies.
