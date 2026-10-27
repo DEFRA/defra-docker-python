@@ -102,18 +102,18 @@ ignore:
   # # Fix released in Python 3.12.13 - Grype database still showing as vulnerable. Confirmed patch included in 3.12.13 (commit 14b1fdb) release, waiting for Grype DB update.
   # - vulnerability: CVE-2025-13836
 
-  # Fixed in Python 3.15, waiting for fix to propagate to <3.15.0 releases.
+  # 3.15.2 images have these fixed - 3.12 only.
   - vulnerability: CVE-2025-15366
   - vulnerability: CVE-2025-15367
   - vulnerability: CVE-2025-12781
 
-  # base64 decode failure. Fixed in Python 3.13.13 - pending fix release to 3.12 releases.
+  # Affected 3.12, 3.13 - fixed in 3.13.13, no 3.12 backport available yet.
   - vulnerability: CVE-2026-3446
 
-  # HTML/Script injection in http.cookies.Morsel.js_output(). Fixed in 3.13.14, 3.14.5rc1, 3.15.0b1 - no 3.12 backport available yet.
+  # Affected 3.12, 3.14 - fixed in 3.13.14, 3.14.5rc1, 3.15.0b1. No 3.12 backport available yet.
   - vulnerability: CVE-2026-6019
 
-  # Race condition in tempfile.TemporaryDirectory cleanup (cpython#157579): replacing a directory with a symlink during cleanup can delete or chmod files outside the temp dir. Fixed in 3.15.0; backports merged to 3.13 and 3.14 (PR #158429, #158430) but not yet released, 3.12 backports reverted. Only exploitable locally when the temp tree is attacker-writable during cleanup.
+  # Affected 3.12, 3.13, 3.14 - fixed in 3.15.0; backports merged to 3.13 and 3.14 (PR #158429, #158430) but not yet released, 3.12 backports reverted. Only exploitable locally when the temp tree is attacker-writable during cleanup.
   - vulnerability: CVE-2026-12345
 
   # ==========================
